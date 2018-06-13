@@ -32,11 +32,13 @@ class App extends Component {
 
   render() {
       getAllPostsFromServer();
-      console.log("Post To be Upvoted", this.state.post);
-      this.state.post && PostAPI.postVote(this.state.post.id, "downVote");
-      console.log("Checking Upvote");
-      getAllPostsFromServer();
 
+      const title = "Udacity is the best place to learn React and also Android";
+      const body = "Everyone says so and I used it myself too";
+      this.state.post.id && PostAPI.getPostComments(this.state.post.id)
+          .then(post => {
+              console.log("Post comments", post)
+          });
 
 
     return (

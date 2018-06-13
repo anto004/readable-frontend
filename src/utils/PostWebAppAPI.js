@@ -97,9 +97,25 @@ export const postVote = (id, vote) =>
 //     Edit the details of an existing post
 // PARAMS:
 //     title - String
-// body - String
+//     body - String
+export const editPost = (id, title, body) =>
+    fetch(`${url}/posts/${id}`, {
+        method: "PUT",
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(
+            {
+                "title": title,
+                "body": body
+            }
+        )
+    })
+        .then(res => res.json())
+        .then(data => data);
 
-
+//TODO create new post new comments and test deletePost
 // DELETE /posts/:id
 // USAGE:
 //     Sets the deleted flag for a post to 'true'.
@@ -109,6 +125,10 @@ export const postVote = (id, vote) =>
 // GET /posts/:id/comments
 // USAGE:
 //     Get all the comments for a single post
+export const getPostComments = (postId) =>
+    fetch(`${url}/posts/${postId}/comments`, {headers})
+        .then(res => res.json())
+        .then(data => data);
 
 
 // POST /comments
