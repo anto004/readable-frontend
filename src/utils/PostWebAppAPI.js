@@ -38,18 +38,40 @@ export const getAllPosts = () =>
 // USAGE:
 //     Add a new post
 // PARAMS:
-//     id - UUID should be fine, but any unique id will work
-// timestamp - timestamp in whatever format you like, you can use Date.now() if you like
-// title - String
-// body - String
-// author - String
-// category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
-
+//      id - UUID should be fine, but any unique id will work
+//      timestamp - timestamp in whatever format you like, you can use Date.now() if you like
+//      title - String
+//      body - String
+//      author - String
+//      category: Any of the categories listed in categories.js. Feel free to extend this list as you desire.
+export const addPost = (id, timestamp, title, body, author, category) =>
+    fetch(`${url}/posts`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                "id":id,
+                "timestamp": timestamp,
+                "title": title,
+                "body": body,
+                "author": author,
+                "category": category
+            }
+           )
+    }).then(res => res.json());
 
 // GET /posts/:id
 // USAGE:
 //     Get the details of a single post
-
+export const getPost = (id) =>
+    //url.searchParams.append("id", id);
+    fetch(`${url}/posts/${id}`, {headers})
+        .then(res => {
+            console.log("API post", res);
+            return res.json()});
 
 // POST /posts/:id
 // USAGE:
