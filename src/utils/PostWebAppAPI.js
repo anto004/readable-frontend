@@ -67,18 +67,30 @@ export const addPost = (id, timestamp, title, body, author, category) =>
 // USAGE:
 //     Get the details of a single post
 export const getPost = (id) =>
-    //url.searchParams.append("id", id);
+    // url.searchParams.append("id", id);
     fetch(`${url}/posts/${id}`, {headers})
-        .then(res => {
-            console.log("API post", res);
-            return res.json()});
+        .then(res => res.json());
 
 // POST /posts/:id
 // USAGE:
 //     Used for voting on a post
 // PARAMS:
 //     option - String: Either "upVote" or "downVote"
-
+export const postVote = (id, vote) =>
+    fetch(`${url}/posts/${id}`, {
+        method: 'POST',
+        headers: {
+            ...headers,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                "option": vote
+            }
+        )
+    })
+        .then(res => res.json())
+        .then(data => data);
 
 // PUT /posts/:id
 // USAGE:

@@ -3,22 +3,40 @@ import React, {Component} from "react";
 import * as PostAPI from "./utils/PostWebAppAPI";
 import {url} from "./utils/PostWebAppAPI";
 
-class App extends Component {
-  render() {
-//       const id = require("uuid/v4");
-//       const timestamp = Date.now();
-//       const title = "Cabbage Porridge Soup";
-//       const body = "There is a taste of happiness in your soup";
-//       const author = "A";
-//       const category = "udacity";
-//
-//       const categories = PostAPI.getCategories();
-//       console.log("categories", categories);
-      const postId = "8xf0y6ziyjabvozdd253nd";
+const getAllPostsFromServer = () => {
+    PostAPI.getAllPosts().then((postsS) => {
+        console.log("All posts");
+        postsS.map((post) => console.log(post))
+    });
+};
 
-      PostAPI.getPost(postId).then((posts) => {
-          console.log("Component post", posts)
-      });
+const getAllCategoriesFromServer = () => {
+    PostAPI.getCategories().then((categoriesS) => {
+        console.log("All Categories");
+        categoriesS.map((category) => console.log(category))
+    })
+};
+
+class App extends Component {
+    state = {
+        post: {}
+    };
+    componentDidMount(){
+        const postId = "8xf0y6ziyjabvozdd253nd";
+        PostAPI.getPost(postId).then(p => {
+            this.setState({
+                post: p
+            })
+        });
+    }
+
+  render() {
+      getAllPostsFromServer();
+      console.log("Post To be Upvoted", this.state.post);
+      this.state.post && PostAPI.postVote(this.state.post.id, "downVote");
+      console.log("Checking Upvote");
+      getAllPostsFromServer();
+
 
 
     return (
