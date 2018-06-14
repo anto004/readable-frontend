@@ -76,7 +76,7 @@ export const getPost = (id) =>
 //     Used for voting on a post
 // PARAMS:
 //     option - String: Either "upVote" or "downVote"
-export const postVote = (id, vote) =>
+export const votePost = (id, vote) =>
     fetch(`${url}/posts/${id}`, {
         method: 'POST',
         headers: {
@@ -130,7 +130,6 @@ export const getPostComments = (postId) =>
         .then(res => res.json())
         .then(data => data);
 
-
 // POST /comments
 // USAGE:
 //     Add a comment to a post
@@ -138,16 +137,62 @@ export const getPostComments = (postId) =>
 //     id: Any unique ID. As with posts, UUID is probably the best here.
 //     timestamp: timestamp. Get this however you want.
 //     body: String
-// author: String
-// parentId: Should match a post id in the database.
-//     GET /comments/:id
+//     author: String
+//     parentId: Should match a post id in the database.
+export const addPostComment = (id, timestamp, body, author, parentId) =>
+    fetch(`${url}/comments`,{
+        method: "POST",
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(
+            {
+                "id": id,
+                "parentId": parentId,
+                "timestamp": timestamp,
+                "body": body,
+                "author": author
+            }
+        )
+    })
+        .then(res => res.json())
+        .then(data => data);
+
+// GET /comments/:id
 // USAGE:
 //     Get the details for a single comment
+export const getComment = (id) =>
+    fetch(`${url}/comments/${id}`, {headers})
+        .then(res => res.json())
+        .then(data => data);
+
 // POST /comments/:id
 // USAGE:
 //     Used for voting on a comment.
 //     PARAMS:
-// option - String: Either "upVote" or "downVote"
+//     option - String: Either "upVote" or "downVote"
+export const voteComment = (id, option) =>
+    fetch(`${url}/comments/${id}`, {
+        method: "POST",
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(
+            {
+                "option": option
+            }
+        )
+
+    })
+        .then(res => {
+            console.log("API commentVote", res);
+            return res.json();
+        })
+        .then(data => data);
+
+
 // PUT /comments/:id
 // USAGE:
 //     Edit the details of an existing comment

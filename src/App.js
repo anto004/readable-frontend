@@ -19,7 +19,8 @@ const getAllCategoriesFromServer = () => {
 
 class App extends Component {
     state = {
-        post: {}
+        post: {},
+        comments: []
     };
     componentDidMount(){
         const postId = "8xf0y6ziyjabvozdd253nd";
@@ -28,18 +29,42 @@ class App extends Component {
                 post: p
             })
         });
+
+        PostAPI.getPostComments(postId)
+            .then(comments => {
+                this.setState({
+                    comments: comments
+                })
+            });
     }
 
   render() {
       getAllPostsFromServer();
 
-      const title = "Udacity is the best place to learn React and also Android";
-      const body = "Everyone says so and I used it myself too";
-      this.state.post.id && PostAPI.getPostComments(this.state.post.id)
-          .then(post => {
-              console.log("Post comments", post)
-          });
+      if(this.state.post){
+          console.log("post: ", this.state.post, " comments: ", this.state.comments);
+          // "id": id,
+          // "parentId": parentId,
+          // "timestamp": timestamp,
+          // "body": body,
+          // "author": author
+          const uuid = require("uuid/v4");
+          const id = uuid();
+          const parentId = this.state.post.id;
+          const timestamp = Date.now();
+          const body = "I want to graduate in React!!";
+          const author = "Antonio";
+          for(var i = 0; i < this.state.comments.length; i++) {
+              const comment = this.state.comments[i];
 
+              if(comment.parentId === this.state.post.id && comment.author === "Antonio"){
+                  PostAPI.voteComment(comment.id, "downVote")
+                      .then(data => {
+                          console.log("Get Comment: ", data)
+                      });
+              }
+          }
+      }
 
     return (
       <div className="App">
