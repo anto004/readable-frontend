@@ -120,7 +120,17 @@ export const editPost = (id, title, body) =>
 // USAGE:
 //     Sets the deleted flag for a post to 'true'.
 //     Sets the parentDeleted flag for all child comments to 'true'.
-
+export const deletePost = (id) =>
+    fetch(`${url}/posts/${id}`, {
+        method: "DELETE",
+        headers: {
+            ...headers,
+            "Content-type": "application/json"
+        }
+    }).then(res => {
+        console.log("API delete Post", res);
+        return res.json()
+    }).then(data => data);
 
 // GET /posts/:id/comments
 // USAGE:
@@ -199,6 +209,32 @@ export const voteComment = (id, option) =>
 // PARAMS:
 //     timestamp: timestamp. Get this however you want.
 //     body: String
+
+export const editComment = (id, timestamp, body) =>
+    fetch(`${url}/comments/${id}`, {
+        method: "PUT",
+        headers: {
+            ...headers,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(
+            {
+                "timestamp": timestamp,
+                "body": body
+            }
+        )
+    })
+        .then(res => res.json())
+        .then(data => data);
+
 // DELETE /comments/:id
 // USAGE:
 //     Sets a comment's deleted flag to 'true'
+export const deleteComment = (id) =>
+    fetch(`${url}/comments/${id}`, {
+        method: "DELETE",
+        headers: {
+            ...headers,
+            "Content-type": "application/json"
+        }
+    }).then(res => res.json()).then(data => data);

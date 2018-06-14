@@ -3,12 +3,14 @@ import React, {Component} from "react";
 import * as PostAPI from "./utils/PostWebAppAPI";
 import {url} from "./utils/PostWebAppAPI";
 
-const getAllPostsFromServer = () => {
-    PostAPI.getAllPosts().then((postsS) => {
-        console.log("All posts");
-        postsS.map((post) => console.log(post))
-    });
+const getAllPostsFromServer = (posts) => {
+    console.log("Post: ");
+    posts && posts.map((post) => {
+        console.log(post);
+    })
+
 };
+
 
 const getAllCategoriesFromServer = () => {
     PostAPI.getCategories().then((categoriesS) => {
@@ -19,11 +21,12 @@ const getAllCategoriesFromServer = () => {
 
 class App extends Component {
     state = {
+        posts: [],
         post: {},
         comments: []
     };
     componentDidMount(){
-        const postId = "8xf0y6ziyjabvozdd253nd";
+        const postId = "852e2ab7-b4f1-44d6-b9e9-c58412e769bc";
         PostAPI.getPost(postId).then(p => {
             this.setState({
                 post: p
@@ -36,13 +39,37 @@ class App extends Component {
                     comments: comments
                 })
             });
+        PostAPI.getAllPosts().then(posts => {
+            this.setState({
+                posts: posts
+            })
+        })
     }
 
   render() {
-      getAllPostsFromServer();
+      const posts = getAllPostsFromServer(this.state.posts);
+      console.log("All posts", posts);
+          // "id":id,
+          // "timestamp": timestamp,
+          // "title": title,
+          // "body": body,
+          // "author": author,
+          // "category": category
+      const title = "Graduate";
 
-      if(this.state.post){
+      if(this.state.comments.length !== 0){
+          console.log("Comments: ");
+          this.state.comments.map((post) => {
+              console.log(post);
+          })
+      }
+
+      if(Object.keys(this.state.post).length !== 0){
           console.log("post: ", this.state.post, " comments: ", this.state.comments);
+          PostAPI.deletePost(this.state.post.id)
+              .then(data => {
+                  console.log("Delete post", data);
+              });
           // "id": id,
           // "parentId": parentId,
           // "timestamp": timestamp,
@@ -50,20 +77,44 @@ class App extends Component {
           // "author": author
           const uuid = require("uuid/v4");
           const id = uuid();
-          const parentId = this.state.post.id;
+          const commentId1 = "1234";
+          const commentId2 = "2345";
           const timestamp = Date.now();
-          const body = "I want to graduate in React!!";
-          const author = "Antonio";
-          for(var i = 0; i < this.state.comments.length; i++) {
-              const comment = this.state.comments[i];
+          const body = "I hope I will still graduate in React. I have to!";
+          const author1 = "Antonio";
+          const author2 = "Na Bung Sun";
+          const category = this.state.post.category;
+          const parentId =  "852e2ab7-b4f1-44d6-b9e9-c58412e769bc";
 
-              if(comment.parentId === this.state.post.id && comment.author === "Antonio"){
-                  PostAPI.voteComment(comment.id, "downVote")
-                      .then(data => {
-                          console.log("Get Comment: ", data)
-                      });
-              }
-          }
+          // PostAPI.addPost(id, timestamp, title, body, author, category)
+          //     .then(post => {
+          //         console.log("Add new Post", post);
+          //     })
+
+          // for(var i = 0; i < this.state.comments.length; i++) {
+          //     const comment = this.state.comments[i];
+          //
+          //     if(comment.parentId === this.state.post.id){
+          //         for(var j = 0; j < 2; j++){
+          //             if(comment.id === commentId1){
+          //                 isPresent.comment1 = true;
+          //             }
+          //             if(comment.id === commentId2){
+          //                 isPresent.comment2 = true;
+          //             }
+          //         }
+          //     }
+          // }
+          // if(this.state.comments.length === 0){
+          //     PostAPI.addPostComment(commentId1, timestamp, body, author1, parentId)
+          //         .then(data => {
+          //             console.log("Added comment1", data)
+          //         });
+          //     PostAPI.addPostComment(commentId2, timestamp, body, author2, parentId)
+          //         .then(data => {
+          //             console.log("Added comment2", data)
+          //         });
+          // }
       }
 
     return (
