@@ -1,7 +1,12 @@
-import "./App.css"
+import "../App.css"
 import React, {Component} from "react";
-import * as PostAPI from "./utils/PostWebAppAPI";
+import * as PostAPI from "../utils/PostWebAppAPI";
+import Category from "../components/Category";
+import {Route} from "react-router-dom";
+import Posts from "../components/Posts"
+import CreatePost from "./CreatePost";
 
+//TODO: use a modal for creating new post
 class App extends Component {
     state = {
         posts: [],
@@ -9,7 +14,7 @@ class App extends Component {
         comments: []
     };
     componentDidMount(){
-        const postId = "852e2ab7-b4f1-44d6-b9e9-c58412e769bc";
+        const postId = "8xf0y6ziyjabvozdd253nd";
         PostAPI.getPost(postId).then(p => {
             this.setState({
                 post: p
@@ -35,6 +40,13 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Readable</h1>
         </header>
+
+          <Route exact path="/" render={() => (
+              <Category/>
+          )}/>
+          <Route path="/posts" component={Posts}/>
+          <Route path="/createPost" component={CreatePost}/>
+
       </div>
     );
   }

@@ -1,20 +1,71 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-header {
-  background-color: #222;
-  height: 60px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    height: 60px;
+    padding: 20px;
+    color: white;
 }
 
 .App-title {
-  font-size: 2.5em;
-  color:LightGray;
+    font-size: 2.5em;
+    color: LightGray;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
+.Table-style {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 50%;
+
+}
+
+.Table-row:nth-child(even) {
+    background-color: grey;
+}
+
+.Table-data {
+    border: 1px solid grey;
+    text-align: left;
+    padding: 8px
+}
+
+.container {
+    margin: 0 auto;
+    padding: 20px
+}
+
+.body-title {
+    text-align: left;
+}
+
+.form-container{
+    width: 60%;
+    height: 100%;
+    padding: 10% 20%;
+}
+.form-textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
+
+.form-author {
+    width: 35%;
+    height: 40px;
+    padding: 12px 20px;
+    margin: 0px 100px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+}
