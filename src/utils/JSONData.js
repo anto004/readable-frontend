@@ -26,3 +26,9 @@ const comment = {
         "deleted":false,
         "parentDeleted":false
 };
+
+const state = {
+        category: [category],
+        post: [post],
+        comment: [comment]
+}
