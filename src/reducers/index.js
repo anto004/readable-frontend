@@ -54,3 +54,5 @@ const post = (state = initialPostState, action) => {
             return state;
     }
 };
+
+export default post;

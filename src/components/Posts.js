@@ -1,5 +1,8 @@
 import React,{Component} from "react";
 import "../App.css";
+import {addPost} from "../actions";
+import {Link} from "react-router-dom";
+
 
 class Posts extends Component {
     render(){
@@ -17,6 +20,7 @@ class Posts extends Component {
                         </tr>
                         </tbody>
                     </table>
+                    <Link to="/createPost">New Post</Link>
                 </div>
             </div>
         )

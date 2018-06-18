@@ -5,34 +5,11 @@ import Category from "../components/Category";
 import {Route} from "react-router-dom";
 import Posts from "../components/Posts"
 import CreatePost from "./CreatePost";
+import post from "../reducers";
+import {addPost} from "../actions";
 
 //TODO: use a modal for creating new post
 class App extends Component {
-    state = {
-        posts: [],
-        post: {},
-        comments: []
-    };
-    componentDidMount(){
-        const postId = "8xf0y6ziyjabvozdd253nd";
-        PostAPI.getPost(postId).then(p => {
-            this.setState({
-                post: p
-            })
-        });
-
-        PostAPI.getPostComments(postId)
-            .then(comments => {
-                this.setState({
-                    comments: comments
-                })
-            });
-        PostAPI.getAllPosts().then(posts => {
-            this.setState({
-                posts: posts
-            })
-        })
-    }
 
   render() {
     return (
