@@ -6,6 +6,8 @@ import {Link} from "react-router-dom";
 
 class Posts extends Component {
     render(){
+        const id = 123;
+        const fullName = "Antonio Bang";
         return (
             <div>
                 <div className="container">
@@ -14,9 +16,22 @@ class Posts extends Component {
                         <tbody>
                         <tr className="Table-row">
                             <td className="Table-data">Post one</td>
+                            <td className="Table-data">
+                                <Link to={`/editPost/${id}`}>Edit</Link>
+                            </td>
+                            <td className="Table-data">
+                                <Link to="/deletePost">Delete</Link>
+                            </td>
+
                         </tr>
                         <tr className="Table-row">
                             <td className="Table-data">Post two</td>
+                            <td className="Table-data">
+                                <Link to="/editPost">Edit</Link>
+                            </td>
+                            <td className="Table-data">
+                                <Link to="/deletePost">Delete</Link>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

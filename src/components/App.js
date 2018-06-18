@@ -7,6 +7,7 @@ import Posts from "../components/Posts"
 import CreatePost from "./CreatePost";
 import post from "../reducers";
 import {addPost} from "../actions";
+import EditPost from "./EditPost";
 
 //TODO: use a modal for creating new post
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
           )}/>
           <Route path="/posts" component={Posts}/>
           <Route path="/createPost" component={CreatePost}/>
+          <Route path="/editPost/:id" component={EditPost}/>
 
       </div>
     );

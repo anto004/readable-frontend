@@ -1,4 +1,4 @@
-import {ADD_POST} from "../actions";
+import {ADD_POST, EDIT_POST} from "../actions";
 import * as PostAPI from "../utils/PostWebAppAPI";
 
 const CATEGORY = "category";
@@ -39,7 +39,6 @@ const post = (state = initialPostState, action) => {
     const {id, timestamp, title, body, author, category} = action;
     switch(action.type){
         case ADD_POST:
-            console.log("ADD_POST Reducer State: ", state);
             //make api post request and get request
             //save to state
             // PostAPI.addPost(id, timestamp, title, body, author, category)
@@ -48,6 +47,18 @@ const post = (state = initialPostState, action) => {
                 ...state,
                 [POST]: state[POST].concat(
                     [createNewPost(id, timestamp, title, body, author, category)])
+            };
+        case EDIT_POST:
+            const newPost = createNewPost(id, timestamp, title, body, author, category);
+            const currentPosts = state[POST];
+            state[POST].map((post, index) => {
+                if(post.id === id){
+                    currentPosts.splice(index, 1, newPost);
+                }
+            });
+            return {
+                ...state,
+                [POST]: currentPosts
             };
 
         default:

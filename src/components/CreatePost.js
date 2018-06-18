@@ -5,61 +5,68 @@ import {addPost} from "../actions";
 import {connect} from "react-redux";
 
 class CreatePost extends Component{
+    TITLE = "title";
+    BODY = "body";
+    AUTHOR = "author";
+
     state = {
-        category: [],
-        posts: [],
-        comments: []
+        title: "",
+        body: "",
+        author: ""
     };
-    componentDidMount(){
-        // const {store} = this.props
-        // store.subscribe(() => {
-        //     this.setState({
-        //         category: store.getState().category
-        //     });
-        //
-        //     this.setState({
-        //         posts: store.getState().posts
-        //     });
-        //
-        //     this.setState({
-        //         comments: store.getState().comments
-        //     });
-        //     console.log("subscribe called", store.getState());
-        // })
-    }
 
     handleSubmit(e) {
         e.preventDefault();
-        const formValues = serializeForm(e.target, {hash: true});
-        console.log("Form Values", formValues);
+        // const formValues = serializeForm(e.target, {hash: true});
 
         const uuid = require("uuid/v4");
         const id = uuid();
         const timestamp = Date.now();
-        const title = formValues.title;
-        const body = formValues.body;
-        const author = formValues.author;
         const category = "Hobbies";
-        this.props.store.dispatch(addPost({
+
+        this.props.boundAddPost({
             "id":id,
             "timestamp": timestamp,
-            "title": title,
-            "body": body,
-            "author": author,
+            "title": this.state.title,
+            "body": this.state.body,
+            "author": this.state.author,
             "category": category
-        }))
+        })
     }
 
+    updateForm = (e, formType) => {
+        switch(formType){
+            case this.TITLE:
+                this.setState({title: e.target.value});
+                break;
+            case this.BODY:
+                this.setState({body: e.target.value});
+                break;
+            case this.AUTHOR:
+                this.setState({author: e.target.value});
+                break;
+            default:
+        }
+    };
+
     render(){
-        console.log("create post props", this.props);
+        console.log(" this.state.title:", this.state.title,
+            " this.state.body:", this.state.body,
+            " this.state.author:", this.state.author);
+
         return (
             <div>
                 <div className="form-container">
                     <form onSubmit={(event) => this.handleSubmit(event)}>
-                        <input type="text" className="form-title" name="title" placeholder="title here"/>
-                        <input type="text" className="form-textarea" placeholder="Write your post here" name="body"/>
-                        <input type="text" className="form-author" placeholder="Your Name" name="author"/>
-                        <input type="submit" value="submit"/>
+                        <input type="text" className="form-title"
+                               placeholder="title here" onChange={(event) => this.updateForm(event, this.TITLE)}/>
+                        <input type="text" className="form-textarea" placeholder="Write your post here"
+                                onChange={(event) => this.updateForm(event, this.BODY)}/>
+                        <input type="text" className="form-author" placeholder="Your Name"
+                                onChange={(event) => this.updateForm(event, this.AUTHOR)}/>
+                        <button type="submit"
+                                disabled={!this.state.title || !this.state.body || !this.state.author}>Submit
+                        </button>
                     </form>
                 </div>
             </div>
@@ -67,10 +74,14 @@ class CreatePost extends Component{
     }
 }
 
-function mapStateToProps(state, ownProps) {
-    return {
+const mapStateToProps = (state, ownProps) => ({
         posts: state.post
-    };
-};
+});
 
-export default connect(mapStateToProps,)(CreatePost);
+const mapDispatchToProps = (dispatch) => ({
+    boundAddPost: (post) => dispatch(addPost(post))
+});
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);
