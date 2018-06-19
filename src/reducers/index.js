@@ -1,5 +1,4 @@
-import {ADD_POST, EDIT_POST} from "../actions";
-import * as PostAPI from "../utils/PostWebAppAPI";
+import {ADD_POST, EDIT_POST, DELETE_POST} from "../actions";
 
 const CATEGORY = "category";
 const POST = "post";
@@ -61,6 +60,12 @@ const post = (state = initialPostState, action) => {
             return {
                 ...state,
                 [POST]: currentPosts
+            };
+
+        case DELETE_POST:
+            return{
+                ...state,
+                [POST]: state[POST].filter((post) => post.id !== id)
             };
 
         default:

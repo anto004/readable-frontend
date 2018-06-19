@@ -6,7 +6,6 @@ const headers = {
     'Authorization': token
 };
 
-
 /**
  * GET /categories
      USAGE:

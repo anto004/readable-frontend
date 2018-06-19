@@ -85,6 +85,4 @@ const mapDispatchToProps = (dispatch) => ({
     boundAddPost: (post) => dispatch(addPost(post))
 });
 
-
-
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);

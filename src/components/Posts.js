@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import "../App.css";
-import {addPost, editPost} from "../actions";
+import {addPost, editPost, deletePost} from "../actions";
 import {Link} from "react-router-dom";
 import LeftArrow from "react-icons/lib/fa/arrow-circle-left";
 import {connect} from "react-redux";
@@ -30,7 +30,6 @@ class Posts extends Component {
         //Get the particular post to edit, only if the modal is open
         for(var i = 0; i < posts.length; i++){
             if(posts[i].id === id){
-                console.log("PostTOEdit", posts[i]);
                 this.setState({
                     id: id
                 });
@@ -89,8 +88,7 @@ class Posts extends Component {
     }
 
     render(){
-        const id = 123;
-        const {posts} = this.props;
+        const {posts, boundDeletePost} = this.props;
         const {editPostModalOpen} = this.state;
 
         return (
@@ -103,10 +101,12 @@ class Posts extends Component {
                             <tr key={post.id} className="Table-row">
                                 <td className="Table-data">{post.title}</td>
                                 <td className="Table-data">
-                                    <button onClick={() => this.openEditPostModal(post.id)}>EditPost</button>
+                                    <button onClick={() => this.openEditPostModal(post.id)}>Edit</button>
                                 </td>
                                 <td className="Table-data">
-                                    <button><Link to="/deletePost">Delete</Link></button>
+                                    <button onClick={() =>
+                                        boundDeletePost({"id": post.id})}>Delete
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -159,7 +159,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     boundAddPost: (post) => dispatch(addPost(post)),
-    boundEditPost: (post) => dispatch(editPost(post))
+    boundEditPost: (post) => dispatch(editPost(post)),
+    boundDeletePost: (id) => dispatch(deletePost(id))
 });
 
 
