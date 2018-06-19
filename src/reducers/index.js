@@ -6,6 +6,7 @@ const POST = "post";
 const COMMENT = "comment";
 
 const initialPostState = {
+    //Testing Values
     category: ["Udacity", "Hobbies"],
     post: [
         {
@@ -46,7 +47,8 @@ const post = (state = initialPostState, action) => {
             return {
                 ...state,
                 [POST]: state[POST].concat(
-                    [createNewPost(id, timestamp, title, body, author, category)])
+                    [createNewPost(id, timestamp, title, body, author, category)]
+                )
             };
         case EDIT_POST:
             const newPost = createNewPost(id, timestamp, title, body, author, category);

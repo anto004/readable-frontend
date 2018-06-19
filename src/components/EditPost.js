@@ -5,18 +5,18 @@ import {connect} from "react-redux";
 
 class EditPost extends Component{
 
-    render() {
-        console.log("EditPost props : ",this.props.match);
-        console.log("id:", this.props.match.params.id)
-        console.log("name:", this.props.location);
-        return (
-            <div>
-                <div className="container">
-                    <h2 className="body-title">Edit Post</h2>
-                </div>
-            </div>
-        )
-    }
+    // render() {
+    //     console.log("EditPost props : ",this.props.match);
+    //     console.log("id:", this.props.match.params.id);
+    //     console.log("name:", this.props.location);
+    //     return (
+    //         <div>
+    //             <div className="container">
+    //                 <h2 className="body-title">Edit Post</h2>
+    //             </div>
+    //         </div>
+    //     )
+    // }
 }
 
 const mapStateToProps = (state, myProps) => ({

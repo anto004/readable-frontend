@@ -24,7 +24,7 @@ class CreatePost extends Component{
         const uuid = require("uuid/v4");
         const id = uuid();
         const timestamp = Date.now();
-        const category = "Hobbies";
+        const category = "Hobbies"; //TODO Get category from Category component
 
         this.props.boundAddPost({
             "id":id,

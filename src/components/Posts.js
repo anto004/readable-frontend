@@ -1,21 +1,50 @@
 import React,{Component} from "react";
 import "../App.css";
-import {addPost} from "../actions";
+import {addPost, editPost} from "../actions";
 import {Link} from "react-router-dom";
 import LeftArrow from "react-icons/lib/fa/arrow-circle-left";
 import {connect} from "react-redux";
 import Modal from "react-modal";
 
-
+Modal.setAppElement("body");
 class Posts extends Component {
+    TITLE = "title";
+    BODY = "body";
+    AUTHOR = "author";
+
     state = {
-        editPostModalOpen: false
+        editPostModalOpen: false,
+        id: "", //To keep track of the post to edit
+        title: "",
+        body: "",
+        author: ""
     };
 
-    openEditPostModal = () => {
+    openEditPostModal = (id) => {
+        const {posts} = this.props;
+
         this.setState({
             editPostModalOpen: true,
-        })
+        });
+
+        //Get the particular post to edit, only if the modal is open
+        for(var i = 0; i < posts.length; i++){
+            if(posts[i].id === id){
+                console.log("PostTOEdit", posts[i]);
+                this.setState({
+                    id: id
+                });
+                this.setState({
+                    title: posts[i].title,
+                });
+                this.setState({
+                    body: posts[i].body,
+                });
+                this.setState({
+                    author: posts[i].author
+                });
+            }
+        }
     };
 
     closeEditPostModal = () => {
@@ -24,13 +53,48 @@ class Posts extends Component {
         })
     };
 
+    updateForm = (e, formType) => {
+        switch(formType){
+            case this.TITLE:
+                this.setState({title: e.target.value});
+                break;
+            case this.BODY:
+                this.setState({body: e.target.value});
+                break;
+            case this.AUTHOR:
+                this.setState({author: e.target.value});
+                break;
+            default:
+        }
+    };
+
+    handleSubmit(e) {
+        e.preventDefault();
+
+        const timestamp = Date.now();
+        const category = "Hobbies"; //TODO Get category from Category component
+
+        this.props.boundEditPost({
+            "id": this.state.id,
+            "timestamp": timestamp,
+            "title": this.state.title,
+            "body": this.state.body,
+            "author": this.state.author,
+            "category": category
+        });
+
+        this.setState({
+            editPostModal: false // close modal after finishing editing
+        })
+    }
+
     render(){
         const id = 123;
         const {posts} = this.props;
         const {editPostModalOpen} = this.state;
-        console.log("post modal", editPostModalOpen)
+
         return (
-            <div>
+            <div className="container">
                 <div className="container">
                     <h2 className="body-title">Posts</h2>
                     <table className="Table-style">
@@ -39,18 +103,19 @@ class Posts extends Component {
                             <tr key={post.id} className="Table-row">
                                 <td className="Table-data">{post.title}</td>
                                 <td className="Table-data">
-                                    <Link to={`/editPost/${id}`}>Edit</Link>
+                                    <button onClick={() => this.openEditPostModal(post.id)}>EditPost</button>
                                 </td>
                                 <td className="Table-data">
-                                    <Link to="/deletePost">Delete</Link>
+                                    <button><Link to="/deletePost">Delete</Link></button>
                                 </td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
-                    <button onClick={() => this.openEditPostModal()}>EditPost Test</button>
                     <Link to="/createPost">New Post</Link>
                 </div>
+
+                {/*Edit Post Modal*/}
                 <Modal
                     className="modal"
                     overlayClassName="overlay"
@@ -58,20 +123,29 @@ class Posts extends Component {
                     onRequestClose={this.closeEditPostModal}
                     contentLabel="Modal">
                     <div>
+
                         <button onClick={() => this.closeEditPostModal()}>
-                            <LeftArrow size={30}/>
+                            <LeftArrow size={28}/>
                         </button>
+
                         <form onSubmit={(event) => this.handleSubmit(event)}>
                             <input type="text" className="form-title"
-                                   placeholder="title here" onChange={(event) => this.updateForm(event, this.TITLE)}/>
-                            <input type="text" className="form-textarea" placeholder="Write your post here"
+                                   placeholder="title here"
+                                   value={this.state.title}
+                                   onChange={(event) => this.updateForm(event, this.TITLE)}/>
+                            <input type="text" className="form-textarea"
+                                   placeholder="Write your post here"
+                                   value={this.state.body}
                                    onChange={(event) => this.updateForm(event, this.BODY)}/>
-                            <input type="text" className="form-author" placeholder="Your Name"
+                            <input type="text" className="form-author"
+                                   placeholder="Your Name"
+                                   value={this.state.author}
                                    onChange={(event) => this.updateForm(event, this.AUTHOR)}/>
                             <button type="submit"
                                     disabled={!this.state.title || !this.state.body || !this.state.author}>Submit
                             </button>
                         </form>
+
                     </div>
                 </Modal>
             </div>
@@ -84,7 +158,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    boundAddPost: (post) => dispatch(addPost(post))
+    boundAddPost: (post) => dispatch(addPost(post)),
+    boundEditPost: (post) => dispatch(editPost(post))
 });
 
 
