@@ -3,6 +3,7 @@ import "../App.css";
 import serializeForm from "form-serialize";
 import {addPost} from "../actions";
 import {connect} from "react-redux";
+import {Redirect} from "react-router-dom";
 
 class CreatePost extends Component{
     TITLE = "title";
@@ -12,7 +13,8 @@ class CreatePost extends Component{
     state = {
         title: "",
         body: "",
-        author: ""
+        author: "",
+        redirect: false
     };
 
     handleSubmit(e) {
@@ -31,6 +33,10 @@ class CreatePost extends Component{
             "body": this.state.body,
             "author": this.state.author,
             "category": category
+        });
+
+        this.setState({
+            redirect: true
         })
     }
 
@@ -50,12 +56,9 @@ class CreatePost extends Component{
     };
 
     render(){
-        console.log(" this.state.title:", this.state.title,
-            " this.state.body:", this.state.body,
-            " this.state.author:", this.state.author);
-
         return (
             <div>
+                {this.state.redirect && <Redirect to="/posts"/>}
                 <div className="form-container">
                     <form onSubmit={(event) => this.handleSubmit(event)}>
                         <input type="text" className="form-title"
