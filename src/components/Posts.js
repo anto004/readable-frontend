@@ -1,9 +1,12 @@
 import React,{Component} from "react";
 import "../App.css";
-import {addPost, editPost, deletePost} from "../actions";
-import {getAllPostThunk, editPostToServerThunk} from "../actions";
+import {getAllPostThunk, editPostToServerThunk, deletePostFromServerThunk} from "../actions";
 import {Link} from "react-router-dom";
 import LeftArrow from "react-icons/lib/fa/arrow-circle-left";
+import ThumbsUp from "react-icons/lib/fa/thumbs-o-up";
+import ThumbsDown from "react-icons/lib/fa/thumbs-o-down";
+import EditIcon from "react-icons/lib/fa/edit";
+import CloseIcon from "react-icons/lib/fa/close";
 import {connect} from "react-redux";
 import Modal from "react-modal";
 
@@ -97,20 +100,47 @@ class Posts extends Component {
                         <tbody>
                         {posts.map((post) => (
                             <tr key={post.id} className="Table-row">
-                                <td className="Table-data">{post.title}</td>
-                                <td className="Table-data">
-                                    <button onClick={() => this.openEditPostModal(post.id)}>Edit</button>
-                                </td>
-                                <td className="Table-data">
-                                    <button onClick={() =>
-                                        boundDeletePost({"id": post.id})}>Delete
-                                    </button>
+                                <td className="Outer-Table-data">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                            <td colSpan="5">
+                                                <Link to={`/postDetail/${post.id}`}>{post.title}</Link>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="Table-data">
+                                                Author:{post.author}
+                                            </td>
+                                            <td className="Table-data">
+                                                #Comments:{post.commentCount}
+                                            </td>
+                                            <td className="Table-data">
+                                                Current Score:{post.voteScore}
+                                            </td>
+                                            <td className="Table-data">
+                                                <ThumbsUp/>
+                                            </td>
+                                            <td className="Table-data">
+                                                <ThumbsDown/>
+                                            </td>
+                                            <td className="Table-data">
+                                                <button onClick={() => this.openEditPostModal(post.id)}><EditIcon/></button>
+                                            </td>
+                                            <td className="Table-data">
+                                                <button onClick={() => boundDeletePost(post.id)}>
+                                                    <CloseIcon/>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </td>
                             </tr>
                         ))}
                         </tbody>
                     </table>
-                    <Link to="/createPost">New Post</Link>
+                    <button><Link to="/createPost">New Post</Link></button>
                 </div>
 
                 {/*Edit Post Modal*/}
@@ -156,9 +186,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    boundAddPost: (post) => dispatch(addPost(post)),
     boundEditPost: (id, title, body) => dispatch(editPostToServerThunk(id, title, body)),
-    boundDeletePost: (id) => dispatch(deletePost(id)),
+    boundDeletePost: (id) => dispatch(deletePostFromServerThunk(id)),
     boundGetAllPost: () => dispatch(getAllPostThunk())
 });
 

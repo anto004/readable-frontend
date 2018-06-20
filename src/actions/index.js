@@ -26,9 +26,9 @@ export const editPost = (post) => ({
     post
 });
 
-export const deletePost = ({id}) => ({
+export const deletePost = (post) => ({
     type: DELETE_POST,
-    id: id
+    post
 });
 
 //add all post only if it is the first time (or it will override new post with server posts)
@@ -66,4 +66,10 @@ export const editPostToServerThunk = (id, title, body) => dispatch => {
     PostAPI
         .editPost(id, title, body)
         .then((post) => dispatch(editPost(post)))
+};
+
+export const deletePostFromServerThunk = (id) => dispatch => {
+    PostAPI
+        .deletePost(id)
+        .then((post) => dispatch(deletePost(post)))
 };

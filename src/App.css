@@ -21,18 +21,23 @@
 .Table-style {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 50%;
-
+    width: 100%;
 }
 
-.Table-row:nth-child(even) {
-    background-color: grey;
+.Table-row {
+    background-color: aliceblue;
+}
+
+.Table-row:hover {
+    background-color: gainsboro;
 }
 
 .Table-data {
-    border: 1px solid grey;
     text-align: left;
     padding: 8px
+}
+.Outer-Table-data {
+    border: 1px solid grey;
 }
 
 .container {

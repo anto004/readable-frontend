@@ -49,9 +49,10 @@ const post = (state = initialPostState, action) => {
             };
 
         case DELETE_POST:
+            console.log("DELETE_POST", post);
             return{
                 ...state,
-                [POST]: state[POST].filter((post) => post.id !== id)
+                [POST]: state[POST].filter((currentPost) => currentPost.id !== post.id)
             };
 
         case ADD_ALL_POST:
