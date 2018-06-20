@@ -1,6 +1,7 @@
 import React,{Component} from "react";
 import "../App.css";
-import {addPost, editPost, deletePost, getAllPostThunk} from "../actions";
+import {addPost, editPost, deletePost} from "../actions";
+import {getAllPostThunk, editPostToServerThunk} from "../actions";
 import {Link} from "react-router-dom";
 import LeftArrow from "react-icons/lib/fa/arrow-circle-left";
 import {connect} from "react-redux";
@@ -75,17 +76,9 @@ class Posts extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        const timestamp = Date.now();
         const category = "Hobbies"; //TODO Get category from Category component
 
-        this.props.boundEditPost({
-            "id": this.state.id,
-            "timestamp": timestamp,
-            "title": this.state.title,
-            "body": this.state.body,
-            "author": this.state.author,
-            "category": category
-        });
+        this.props.boundEditPost(this.state.id, this.state.title, this.state.body);
 
         this.setState({
             editPostModal: false // close modal after finishing editing
@@ -138,7 +131,7 @@ class Posts extends Component {
                                    placeholder="title here"
                                    value={this.state.title}
                                    onChange={(event) => this.updateForm(event, this.TITLE)}/>
-                            <input type="text" className="form-textarea"
+                            <textarea wrap="hard" className="form-textarea"
                                    placeholder="Write your post here"
                                    value={this.state.body}
                                    onChange={(event) => this.updateForm(event, this.BODY)}/>
@@ -164,7 +157,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     boundAddPost: (post) => dispatch(addPost(post)),
-    boundEditPost: (post) => dispatch(editPost(post)),
+    boundEditPost: (id, title, body) => dispatch(editPostToServerThunk(id, title, body)),
     boundDeletePost: (id) => dispatch(deletePost(id)),
     boundGetAllPost: () => dispatch(getAllPostThunk())
 });

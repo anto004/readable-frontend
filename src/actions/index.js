@@ -1,49 +1,29 @@
 import * as PostAPI from "../utils/PostWebAppAPI";
 
-
 export const ADD_POST = "ADD_POST";
 export const EDIT_POST = "EDIT_POST";
 export const DELETE_POST = "DELETE_POST";
 export const ADD_ALL_POST = "ADD_ALL_POST";
 export const ADD_ALL_CATEGORY = "ADD_ALL_CATEGORY";
+
 /**
  *
- * @param id
- * @param timestamp
- * @param title
- * @param body
- * @param author
- * @param category
- * @returns {{type: string, id: *, timestamp: *, title: *, body: *, author: *, category: *}}
+ * @param post
+ * @returns {{type: string, post: *}}
  */
-export const addPost = ({id, timestamp, title, body, author, category}) => ({
+export const addPost = (post) => ({
     type: ADD_POST,
-    id,
-    timestamp,
-    title,
-    body,
-    author,
-    category
+    post
 });
 
 /**
  *
- * @param id
- * @param timestamp
- * @param title
- * @param body
- * @param author
- * @param category
- * @returns {{type: string, id: *, timestamp: *, title: *, body: *, author: *, category: *}}
+ * @param post
+ * @returns {{type: string, post: *}}
  */
-export const editPost = ({id, timestamp, title, body, author, category}) => ({
+export const editPost = (post) => ({
     type: EDIT_POST,
-    id,
-    timestamp,
-    title,
-    body,
-    author,
-    category
+    post
 });
 
 export const deletePost = ({id}) => ({
@@ -74,4 +54,16 @@ export const getAllCategoryThunk = () => dispatch => {
     PostAPI
         .getAllCategories()
         .then((categories) => dispatch(addAllCategory(categories))) //categories -> an array of category
+};
+
+export const addPostToServerThunk = (id, timestamp, title, body, author, category) => dispatch => {
+    PostAPI
+        .addPost(id, timestamp, title, body, author, category)
+        .then((post) => dispatch(addPost(post)))
+};
+
+export const editPostToServerThunk = (id, title, body) => dispatch => {
+    PostAPI
+        .editPost(id, title, body)
+        .then((post) => dispatch(editPost(post)))
 };

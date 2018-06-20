@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import "../App.css";
 import serializeForm from "form-serialize";
-import {addPost} from "../actions";
+import {addPostToServerThunk} from "../actions";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
 
@@ -19,21 +19,14 @@ class CreatePost extends Component{
 
     handleSubmit(e) {
         e.preventDefault();
-        // const formValues = serializeForm(e.target, {hash: true});
 
+        // const formValues = serializeForm(e.target, {hash: true});
         const uuid = require("uuid/v4");
         const id = uuid();
         const timestamp = Date.now();
         const category = "Hobbies"; //TODO Get category from Category component
 
-        this.props.boundAddPost({
-            "id":id,
-            "timestamp": timestamp,
-            "title": this.state.title,
-            "body": this.state.body,
-            "author": this.state.author,
-            "category": category
-        });
+        this.props.boundAddPost(id, timestamp, this.state.title, this.state.body, this.state.author, category);
 
         this.setState({
             redirect: true
@@ -63,8 +56,9 @@ class CreatePost extends Component{
                     <form onSubmit={(event) => this.handleSubmit(event)}>
                         <input type="text" className="form-title"
                                placeholder="title here" onChange={(event) => this.updateForm(event, this.TITLE)}/>
-                        <input type="text" className="form-textarea" placeholder="Write your post here"
-                                onChange={(event) => this.updateForm(event, this.BODY)}/>
+                        <textarea className="form-textarea" placeholder="Write your post here"
+                                onChange={(event) => this.updateForm(event, this.BODY)}
+                                wrap="hard"/>
                         <input type="text" className="form-author" placeholder="Your Name"
                                 onChange={(event) => this.updateForm(event, this.AUTHOR)}/>
                         <button type="submit"
@@ -82,7 +76,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    boundAddPost: (post) => dispatch(addPost(post))
+    boundAddPost: (id, timestamp, title, body, author, category) =>
+        dispatch(addPostToServerThunk(id, timestamp, title, body, author, category))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);

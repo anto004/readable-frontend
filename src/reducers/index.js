@@ -24,41 +24,23 @@ const initialPostState = {
     comment: []
 };
 
-const createNewPost = (id, timestamp, title, body, author, category) => ({
-    "id": id,
-    "timestamp": timestamp,
-    "title": title,
-    "body": body,
-    "author": author,
-    "category": category,
-    "voteScore":1,
-    "deleted":false,
-    "commentCount":0
-});
-
 const post = (state = initialPostState, action) => {
     const {id, timestamp, title, body, author, category} = action;
-    const {posts, categories} = action;
+    const {post, posts, categories} = action;
     var currentPosts = [];
 
     switch(action.type){
         case ADD_POST:
-            //make api post request and get request
-            //save to state
-            // PostAPI.addPost(id, timestamp, title, body, author, category)
-            //     .then(data => data);
             return {
                 ...state,
-                [POST]: state[POST].concat(
-                    [createNewPost(id, timestamp, title, body, author, category)]
-                )
+                [POST]: state[POST].concat([post])
             };
         case EDIT_POST:
-            const newPost = createNewPost(id, timestamp, title, body, author, category);
+            console.log("EDIT_POST", post);
             currentPosts = state[POST];
-            state[POST].map((post, index) => {
-                if(post.id === id){
-                    currentPosts.splice(index, 1, newPost);
+            state[POST].map((currentPost, index) => {
+                if(currentPost.id === post.id){
+                    currentPosts.splice(index, 1, post);
                 }
             });
             return {
