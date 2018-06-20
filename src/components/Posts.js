@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import "../App.css";
-import {addPost, editPost, deletePost} from "../actions";
+import {addPost, editPost, deletePost, getAllPostThunk} from "../actions";
 import {Link} from "react-router-dom";
 import LeftArrow from "react-icons/lib/fa/arrow-circle-left";
 import {connect} from "react-redux";
@@ -11,6 +11,11 @@ class Posts extends Component {
     TITLE = "title";
     BODY = "body";
     AUTHOR = "author";
+
+    constructor(props){
+        super(props);
+        props.boundGetAllPost();
+    }
 
     state = {
         editPostModalOpen: false,
@@ -160,7 +165,8 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
     boundAddPost: (post) => dispatch(addPost(post)),
     boundEditPost: (post) => dispatch(editPost(post)),
-    boundDeletePost: (id) => dispatch(deletePost(id))
+    boundDeletePost: (id) => dispatch(deletePost(id)),
+    boundGetAllPost: () => dispatch(getAllPostThunk())
 });
 
 

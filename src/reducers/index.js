@@ -1,4 +1,5 @@
 import {ADD_POST, EDIT_POST, DELETE_POST} from "../actions";
+import {ADD_ALL_POST, ADD_ALL_CATEGORY} from "../actions";
 
 const CATEGORY = "category";
 const POST = "post";
@@ -37,6 +38,9 @@ const createNewPost = (id, timestamp, title, body, author, category) => ({
 
 const post = (state = initialPostState, action) => {
     const {id, timestamp, title, body, author, category} = action;
+    const {posts, categories} = action;
+    var currentPosts = [];
+
     switch(action.type){
         case ADD_POST:
             //make api post request and get request
@@ -51,7 +55,7 @@ const post = (state = initialPostState, action) => {
             };
         case EDIT_POST:
             const newPost = createNewPost(id, timestamp, title, body, author, category);
-            const currentPosts = state[POST];
+            currentPosts = state[POST];
             state[POST].map((post, index) => {
                 if(post.id === id){
                     currentPosts.splice(index, 1, newPost);
@@ -68,6 +72,16 @@ const post = (state = initialPostState, action) => {
                 [POST]: state[POST].filter((post) => post.id !== id)
             };
 
+        case ADD_ALL_POST:
+            return{
+                ...state,
+                [POST]: posts
+            };
+        case ADD_ALL_CATEGORY:
+            return {
+                ...state,
+                [CATEGORY]: categories
+            };
         default:
             return state;
     }
