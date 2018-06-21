@@ -3,19 +3,19 @@ import "../App.css";
 import {getAllPostThunk, editPostToServerThunk, deletePostFromServerThunk} from "../actions";
 import {Link} from "react-router-dom";
 import LeftArrow from "react-icons/lib/fa/arrow-circle-left";
-import ThumbsUp from "react-icons/lib/fa/thumbs-o-up";
-import ThumbsDown from "react-icons/lib/fa/thumbs-o-down";
-import EditIcon from "react-icons/lib/fa/edit";
-import CloseIcon from "react-icons/lib/fa/close";
 import {connect} from "react-redux";
 import Modal from "react-modal";
 import PostBar from "./PostBar";
+import OrderByPosts from "./OrderByPosts";
 
+//TODO: Fix Modal bug: Modal appears below body
 Modal.setAppElement("body");
 class Posts extends Component {
     TITLE = "title";
     BODY = "body";
     AUTHOR = "author";
+    ORDER_DATE = "date";
+    ORDER_VOTE= "vote";
 
     constructor(props){
         super(props);
@@ -24,7 +24,8 @@ class Posts extends Component {
 
     state = {
         editPostModalOpen: false,
-        id: "", //To keep track of the post to edit
+        value: this.ORDER_DATE, //default sort by date
+        id: "",
         title: "",
         body: "",
         author: ""
@@ -32,7 +33,6 @@ class Posts extends Component {
 
     openEditPostModal = (id) => {
         const {posts} = this.props;
-
         this.setState({
             editPostModalOpen: true,
         });
@@ -89,15 +89,39 @@ class Posts extends Component {
         })
     }
 
+    handleChange(e){
+        this.setState({
+            value: e.target.value
+        });
+    }
+
     render(){
-        const {posts, boundDeletePost} = this.props;
-        console.log("posts", posts)
+        const sortBy = require("sort-by");
+        const {posts} = this.props;
         const {editPostModalOpen} = this.state;
+
+        switch(this.state.value){
+            case this.ORDER_DATE:
+                posts.sort(sortBy("timestamp"));
+                break;
+            case this.ORDER_VOTE:
+                posts.sort(sortBy("voteScore"));
+                break;
+            default:
+        }
 
         return (
             <div className="container">
                 <div className="container">
                     <h2 className="body-title">Posts</h2>
+
+                    <div>
+                        <select value={this.state.value} onChange={(event) => this.handleChange(event)}>
+                            <option value={this.ORDER_DATE}>Date</option>
+                            <option value={this.ORDER_VOTE}>Vote</option>
+                        </select>
+                    </div>
+
                     <table className="Table-style">
                         <tbody>
                         {posts.map((post) => (
@@ -105,12 +129,16 @@ class Posts extends Component {
                                 <td className="Outer-Table-data">
                                     <table>
                                         <tbody>
+
                                         <tr>
                                             <td colSpan="5">
-                                                {/*TODO: Pass post object to Post Detail in url*/}
-                                                <Link to={`/postDetail/${post.id}`}>{post.title}</Link>
+                                                <Link to={{
+                                                    pathname: `/postDetail/${post.id}`,
+                                                    state: post
+                                                }}>{post.title}</Link>
                                             </td>
                                         </tr>
+
                                         <tr>
                                             {/*Component for post UI*/}
                                             <PostBar
@@ -124,7 +152,9 @@ class Posts extends Component {
                         ))}
                         </tbody>
                     </table>
-                    <button><Link to="/createPost">New Post</Link></button>
+
+                    <button><Link to="/createPost">Add New Post</Link></button>
+
                 </div>
 
                 {/*Edit Post Modal*/}

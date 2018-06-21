@@ -33,6 +33,7 @@ export const deletePost = (post) => ({
 });
 
 //add all post only if it is the first time (or it will override new post with server posts)
+//or when ordering post
 export const addAllPost = (posts) => ({
     type: ADD_ALL_POST,
     posts
