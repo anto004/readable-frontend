@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import "../App.css";
+import Comments from "./Comments";
 import ThumbsUp from "react-icons/lib/fa/thumbs-o-up";
 import ThumbsDown from "react-icons/lib/fa/thumbs-o-down";
 import EditIcon from "react-icons/lib/fa/edit";
@@ -19,6 +20,7 @@ class PostDetail extends Component{
         "commentCount":0
     };
 
+    //TODO: Replace post actions with Component
     render(){
         return(
             <div className="container">
@@ -32,6 +34,7 @@ class PostDetail extends Component{
                 <div className="post-detail-author-box">
                     {this.post.author}
                 </div>
+
                 <table className="post-detail-table-style">
                     <tbody>
                     <tr>
@@ -56,6 +59,7 @@ class PostDetail extends Component{
                     </tr>
                     </tbody>
                 </table>
+                <Comments/>
             </div>
         );
     }

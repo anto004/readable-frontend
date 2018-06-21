@@ -5,6 +5,7 @@ export const EDIT_POST = "EDIT_POST";
 export const DELETE_POST = "DELETE_POST";
 export const ADD_ALL_POST = "ADD_ALL_POST";
 export const ADD_ALL_CATEGORY = "ADD_ALL_CATEGORY";
+export const VOTE_POST = "VOTE_POST";
 
 /**
  *
@@ -43,6 +44,11 @@ export const addAllCategory = (categories) => ({
     categories
 });
 
+export const votePost = (post) => ({
+    type: VOTE_POST,
+    post
+});
+
 //Thunk's function action creator
 export const getAllPostThunk = () => dispatch => {
     PostAPI
@@ -72,4 +78,10 @@ export const deletePostFromServerThunk = (id) => dispatch => {
     PostAPI
         .deletePost(id)
         .then((post) => dispatch(deletePost(post)))
+};
+
+export const votePostToServerThunk = (id, vote) => dispatch => {
+    PostAPI
+        .votePost(id, vote)
+        .then((post) => dispatch(votePost(post)))
 };

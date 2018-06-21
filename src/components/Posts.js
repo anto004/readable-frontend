@@ -9,6 +9,7 @@ import EditIcon from "react-icons/lib/fa/edit";
 import CloseIcon from "react-icons/lib/fa/close";
 import {connect} from "react-redux";
 import Modal from "react-modal";
+import PostBar from "./PostBar";
 
 Modal.setAppElement("body");
 class Posts extends Component {
@@ -90,6 +91,7 @@ class Posts extends Component {
 
     render(){
         const {posts, boundDeletePost} = this.props;
+        console.log("posts", posts)
         const {editPostModalOpen} = this.state;
 
         return (
@@ -105,33 +107,15 @@ class Posts extends Component {
                                         <tbody>
                                         <tr>
                                             <td colSpan="5">
+                                                {/*TODO: Pass post object to Post Detail in url*/}
                                                 <Link to={`/postDetail/${post.id}`}>{post.title}</Link>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td className="Table-data">
-                                                Author:{post.author}
-                                            </td>
-                                            <td className="Table-data">
-                                                #Comments:{post.commentCount}
-                                            </td>
-                                            <td className="Table-data">
-                                                Current Score:{post.voteScore}
-                                            </td>
-                                            <td className="Table-data">
-                                                <ThumbsUp/>
-                                            </td>
-                                            <td className="Table-data">
-                                                <ThumbsDown/>
-                                            </td>
-                                            <td className="Table-data">
-                                                <button onClick={() => this.openEditPostModal(post.id)}><EditIcon/></button>
-                                            </td>
-                                            <td className="Table-data">
-                                                <button onClick={() => boundDeletePost(post.id)}>
-                                                    <CloseIcon/>
-                                                </button>
-                                            </td>
+                                            {/*Component for post UI*/}
+                                            <PostBar
+                                                post={post}
+                                                openEditPostModal={(id) => this.openEditPostModal(id)}/>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -169,6 +153,7 @@ class Posts extends Component {
                                    placeholder="Your Name"
                                    value={this.state.author}
                                    onChange={(event) => this.updateForm(event, this.AUTHOR)}/>
+                            {/*TODO: on submit close modal*/}
                             <button type="submit"
                                     disabled={!this.state.title || !this.state.body || !this.state.author}>Submit
                             </button>

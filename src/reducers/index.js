@@ -1,26 +1,16 @@
 import {ADD_POST, EDIT_POST, DELETE_POST} from "../actions";
 import {ADD_ALL_POST, ADD_ALL_CATEGORY} from "../actions";
+import {VOTE_POST} from "../actions";
 
-const CATEGORY = "category";
-const POST = "post";
-const COMMENT = "comment";
+export const CATEGORY = "category";
+export const POST = "post";
+export const COMMENT = "comment";
+export const UP_VOTE = "upVote";
+export const DOWN_VOTE = "downVote";
 
 const initialPostState = {
-    //Testing Values
-    category: ["Udacity", "Hobbies"],
-    post: [
-        {
-            "id":"8xf0y6ziyjabvozdd253nd",
-            "timestamp":1467166872634,
-            "title":"Udacity is the best place to learn React",
-            "body":"Everyone says so after all.",
-            "author":"thingtwo",
-            "category":"react",
-            "voteScore":6,
-            "deleted":false,
-            "commentCount":0
-        }
-    ],
+    category: [],
+    post: [],
     comment: []
 };
 
@@ -65,6 +55,17 @@ const post = (state = initialPostState, action) => {
                 ...state,
                 [CATEGORY]: categories
             };
+        case VOTE_POST:
+            return {
+                ...state,
+                [POST]: state[POST].map((p) => {
+                    if(p.id === post.id){
+                        p.voteScore = post.voteScore;
+                    }
+                    return p;
+                })
+            };
+
         default:
             return state;
     }
