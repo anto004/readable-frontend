@@ -84,3 +84,43 @@
     border-radius: 4px;
     resize: none;
 }
+
+.post-detail-title-box {
+    background-color: aliceblue;
+    width: 60%;
+    border: 1px solid black;
+    padding: 8px;
+    margin: 25px;
+    border-radius: 4px;
+}
+
+.post-detail-body-box {
+    background-color: aliceblue;
+    width: 80%;
+    height: 150px;
+    border: 1px solid black;
+    padding: 8px;
+    margin: 25px;
+    border-radius: 4px;
+}
+
+.post-detail-author-box {
+    background-color: aliceblue;
+    width: 30%;
+    border: 1px solid black;
+    padding: 8px;
+    margin: 0 55%;
+    border-radius: 4px;
+}
+
+.post-detail-table-style {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 90%;
+    border: 1px solid black;
+    padding: 8px;
+    margin: 25px;
+    border-radius: 4px;
+}
+
+
