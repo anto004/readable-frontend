@@ -3,12 +3,19 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {getAllCategoryThunk} from "../actions";
+import * as PostAPI from "../utils/PostWebAppAPI";
 
 class Category extends Component{
     constructor(props){
         super(props);
         props.boundGetAllCategory();
     }
+
+    fetchPosts = (category) => {
+        this.props.history.push("?category=" + category)
+    };
+
+    //TODO: pass query parameter category to url
     render() {
         const {categories} = this.props;
         return (
@@ -20,7 +27,11 @@ class Category extends Component{
                         {categories.map((category) => (
                             <tr key={category.name} className="Table-row">
                                 <td className="Table-data">
-                                    <Link to="/posts" onClick={() => {}}>{category.name}</Link>
+                                    <Link to={{
+                                        pathname: "/posts",
+                                        search: `?category=${category}`
+                                    }} onClick={() => this.fetchPosts(category.path)}>
+                                        {category.name}</Link>
                                 </td>
                             </tr>
                         ))}

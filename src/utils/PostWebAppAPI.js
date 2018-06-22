@@ -25,10 +25,16 @@ export const getAllCategories = () =>
  * @returns {Promise<any>}
  */
 //TODO: Testing required
-export const getCategoryPosts = () =>
-    fetch(`${url}/:category/posts`, {headers})
-        .then(res => res.json())
-        .then(posts => posts);
+export const getCategoryPosts = (path) =>
+    fetch(`${url}/:${path}/posts`, {headers})
+        .then(res => {
+            console.log("GetCategoryPosts", res);
+            return res.json()
+        })
+        .then(posts => {
+            console.log("GetCategoryPosts", posts);
+            return posts
+        });
 
 /**
  * GET /posts

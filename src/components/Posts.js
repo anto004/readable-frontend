@@ -6,7 +6,8 @@ import LeftArrow from "react-icons/lib/fa/arrow-circle-left";
 import {connect} from "react-redux";
 import Modal from "react-modal";
 import PostBar from "./PostBar";
-import OrderByPosts from "./OrderByPosts";
+import AddCircle from "react-icons/lib/io/android-add-circle";
+import {POST, CATEGORY, COMMENT} from "../reducers";
 
 //TODO: Fix Modal bug: Modal appears below body
 Modal.setAppElement("body");
@@ -114,9 +115,11 @@ class Posts extends Component {
             <div className="container">
                 <div className="container">
                     <h2 className="body-title">Posts</h2>
-
+                    <Link to="/createPost"><AddCircle size={30}/>Add</Link>
                     <div>
-                        <select value={this.state.value} onChange={(event) => this.handleChange(event)}>
+                        {/*<button className="submit-button"></button>*/}
+                        <select className="order-by-select"
+                                value={this.state.value} onChange={(event) => this.handleChange(event)}>
                             <option value={this.ORDER_DATE}>Date</option>
                             <option value={this.ORDER_VOTE}>Vote</option>
                         </select>
@@ -152,9 +155,6 @@ class Posts extends Component {
                         ))}
                         </tbody>
                     </table>
-
-                    <button><Link to="/createPost">Add New Post</Link></button>
-
                 </div>
 
                 {/*Edit Post Modal*/}
@@ -196,9 +196,15 @@ class Posts extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    posts: state.post
-});
+const mapStateToProps = (state, ownProps) => {
+    const category = ownProps.match;
+    console.log(ownProps);
+    const posts = state[POST].filter((post) => post.category === category && !post.delete);
+    return {
+        posts: state[POST]
+
+    }
+};
 
 const mapDispatchToProps = (dispatch) => ({
     boundEditPost: (id, title, body) => dispatch(editPostToServerThunk(id, title, body)),

@@ -123,4 +123,18 @@
     border-radius: 4px;
 }
 
+.order-by-select {
+    font-family: arial, sans-serif;
+    background-color: aliceblue;
+    width: 200px;
+    height: 30px;
+    margin: 1px 65%;
+}
+
+.submit-button {
+    font-family: arial, sans-serif;
+    padding: 8px;
+    margin: 0 50%;
+}
+
 
