@@ -12,12 +12,16 @@ class Category extends Component{
     }
 
     fetchPosts = (category) => {
-        this.props.history.push("?category=" + category)
+        var query = require("querystringify");
+        const queryString = query.stringify({category: category.name}, true);
+        //console.log("queryString", queryString);
+        query.stringify({category: category.name}, true);
     };
 
     //TODO: pass query parameter category to url
     render() {
         const {categories} = this.props;
+        var query = require("querystringify");
         return (
             <div>
                 <div className="container">
@@ -28,9 +32,9 @@ class Category extends Component{
                             <tr key={category.name} className="Table-row">
                                 <td className="Table-data">
                                     <Link to={{
-                                        pathname: "/posts",
-                                        search: `?category=${category}`
-                                    }} onClick={() => this.fetchPosts(category.path)}>
+                                        pathname: `/:category=${category.name}`,
+                                        search: `?category=${category.name}`
+                                    }} onClick={() => this.fetchPosts(category)}>
                                         {category.name}</Link>
                                 </td>
                             </tr>

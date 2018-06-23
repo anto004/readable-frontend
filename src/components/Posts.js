@@ -115,7 +115,7 @@ class Posts extends Component {
             <div className="container">
                 <div className="container">
                     <h2 className="body-title">Posts</h2>
-                    <Link to="/createPost"><AddCircle size={30}/>Add</Link>
+                    <Link to="/createPost"><AddCircle size={30}/>Write New Post</Link>
                     <div>
                         {/*<button className="submit-button"></button>*/}
                         <select className="order-by-select"
@@ -197,11 +197,14 @@ class Posts extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const category = ownProps.match;
-    console.log(ownProps);
-    const posts = state[POST].filter((post) => post.category === category && !post.delete);
+    var category = "";
+    if(ownProps.location !== undefined){
+        const urlSearchParams = new URLSearchParams(ownProps.location.search);
+        category = urlSearchParams.get("category");
+    }
     return {
-        posts: state[POST]
+        posts: category ? state[POST].filter((post) => post.category === category && !post.delete)
+            :state[POST]
 
     }
 };

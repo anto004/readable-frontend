@@ -18,12 +18,15 @@ class App extends Component {
         </header>
 
           <Route exact path="/" render={() => (
-              <Category/>
+              <div>
+                  <Category/>
+                  <Posts/>
+              </div>
           )}/>
-          <Route path="/posts" component={Posts}/>
+          <Route exact path="/:category" component={Posts}/>
           <Route path="/createPost" component={CreatePost}/>
           <Route path="/editPost/:id" component={EditPost}/>
-          <Route path="/postDetail/:id" component={PostDetail}/>
+          <Route exact path="/postDetail/:id" component={PostDetail}/>
 
       </div>
     );

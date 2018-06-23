@@ -6,6 +6,7 @@ import PostBar from "./PostBar";
 
 class PostDetail extends Component{
     render(){
+        //Getting a post object from location
         const post = this.props.location.state;
         return(
             <div className="container">
