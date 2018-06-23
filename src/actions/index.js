@@ -6,6 +6,14 @@ export const DELETE_POST = "DELETE_POST";
 export const ADD_ALL_POST = "ADD_ALL_POST";
 export const ADD_ALL_CATEGORY = "ADD_ALL_CATEGORY";
 export const VOTE_POST = "VOTE_POST";
+//Comments
+export const ADD_COMMENT = "ADD_COMMENT";
+export const EDIT_COMMENT = "EDIT_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
+export const ADD_ALL_COMMENT = "ADD_ALL_COMMENT";
+export const VOTE_COMMENT = "VOTE_COMMENT";
+
+export const EDIT_COMPONENT = "EDIT_COMPONENT";
 
 /**
  *
@@ -50,6 +58,37 @@ export const votePost = (post) => ({
     post
 });
 
+//Comments action creator
+export const addComment = (comment) => ({
+    type: ADD_COMMENT,
+    comment
+});
+
+export const editComment = (comment) => ({
+    type: EDIT_COMMENT,
+    comment
+});
+
+export const deleteComment = (comment) => ({
+    type: DELETE_COMMENT,
+    comment
+});
+
+export const addAllComment = (comments) => ({
+    type: ADD_ALL_COMMENT,
+    comments
+});
+
+export const voteComment = (comment) => ({
+    type: VOTE_COMMENT,
+    comment
+});
+
+export const editComponent = (option) => ({
+    type: EDIT_COMPONENT,
+    option
+});
+
 //Thunk's function action creator
 export const getAllPostThunk = () => dispatch => {
     PostAPI
@@ -85,4 +124,36 @@ export const votePostToServerThunk = (id, vote) => dispatch => {
     PostAPI
         .votePost(id, vote)
         .then((post) => dispatch(votePost(post)))
+};
+
+//Comments Thunk's action creator
+export const addAllPostCommentsThunk = (postId) => dispatch => {
+    PostAPI
+        .getPostComments(postId)
+        .then((comments) => dispatch(addAllComment(comments))) //posts -> an array of post
+};
+
+export const addCommentToServerThunk = (id, timestamp, body, author, parentId) => dispatch => {
+    PostAPI
+        .addPostComment(id, timestamp, body, author, parentId)
+        .then((comment) => dispatch(addComment(comment)))
+};
+
+//Note check for parentDeleted
+export const editCommentToServerThunk = (id, timestamp, body) => dispatch => {
+    PostAPI
+        .editComment(id, timestamp, body)
+        .then((comment) => dispatch(editComment(comment)))
+};
+
+export const deleteCommentFromServerThunk = (id) => dispatch => {
+    PostAPI
+        .deleteComment(id)
+        .then((comment) => dispatch(deleteComment(comment)))
+};
+
+export const voteCommentToServerThunk = (id, vote) => dispatch => {
+    PostAPI
+        .voteComment(id, vote)
+        .then((comment) => dispatch(voteComment(comment)))
 };

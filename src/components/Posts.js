@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import "../App.css";
-import {getAllPostThunk, editPostToServerThunk, deletePostFromServerThunk} from "../actions";
+import {getAllPostThunk, editPostToServerThunk, deletePostFromServerThunk, addAllPostCommentsThunk} from "../actions";
 import {Link} from "react-router-dom";
 import LeftArrow from "react-icons/lib/fa/arrow-circle-left";
 import {connect} from "react-redux";
@@ -136,7 +136,7 @@ class Posts extends Component {
                                         <tr>
                                             <td colSpan="5">
                                                 <Link to={{
-                                                    pathname: `/postDetail/${post.id}`,
+                                                    pathname: `/${post.category}/${post.id}`,
                                                     state: post
                                                 }}>{post.title}</Link>
                                             </td>

@@ -2,12 +2,17 @@ import React, {Component} from "react";
 import "../App.css";
 import Comments from "./Comments";
 import PostBar from "./PostBar";
+import {COMMENT, EDIT_COMPONENT_STATE, POST} from "../reducers";
+import {connect} from "react-redux";
+import {addAllPostCommentsThunk, editCommentToServerThunk} from "../actions";
 
 
 class PostDetail extends Component{
     render(){
         //Getting a post object from location
-        const post = this.props.location.state;
+        // const post = this.props.location.state;
+        const {post} = this.props;
+
         return(
             <div className="container">
                 <h2 className="body-title">Post Details</h2>
@@ -26,9 +31,19 @@ class PostDetail extends Component{
                     </tr>
                     </tbody>
                 </table>
-                <Comments/>
+                <Comments postId={post.id}/>
             </div>
         );
     }
 }
-export default PostDetail;
+const mapStateToProps = (state, ownProps) => {
+    const postId = ownProps.match.params.id;
+    return {
+        post: state[POST].filter(post => post.id === postId)[0]
+    }
+};
+
+const mapDispatchToProps = (dispatch) => ({
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);
