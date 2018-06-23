@@ -49,6 +49,7 @@ class CreatePost extends Component{
     };
 
     render(){
+        console.log("Create post match",this.props.match);
         return (
             <div>
                 {this.state.redirect && <Redirect to="/posts"/>}

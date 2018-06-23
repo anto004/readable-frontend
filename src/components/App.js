@@ -8,6 +8,7 @@ import EditPost from "./EditPost";
 import PostDetail from "./PostDetail";
 
 //TODO: use a modal for creating new post
+//TODO: Fix bug on createPost: Both Posts and CreatePost are displayed
 class App extends Component {
 
   render() {
@@ -24,8 +25,7 @@ class App extends Component {
               </div>
           )}/>
           <Route exact path="/:category" component={Posts}/>
-          <Route path="/createPost" component={CreatePost}/>
-          <Route path="/editPost/:id" component={EditPost}/>
+          <Route exact path="/createPost" component={CreatePost}/>
           <Route exact path="/postDetail/:id" component={PostDetail}/>
 
       </div>
