@@ -96,6 +96,12 @@ export const getAllPostThunk = () => dispatch => {
         .then((posts) => dispatch(addAllPost(posts))) //posts -> an array of post
 };
 
+export const getPostFromServerThunk = (id) => dispatch => {
+    PostAPI
+        .getPost(id)
+        .then((post) => dispatch(addPost(post))) //posts -> an array of post
+};
+
 export const getAllCategoryThunk = () => dispatch => {
     PostAPI
         .getAllCategories()
@@ -143,7 +149,10 @@ export const addCommentToServerThunk = (id, timestamp, body, author, parentId) =
 export const editCommentToServerThunk = (id, timestamp, body) => dispatch => {
     PostAPI
         .editComment(id, timestamp, body)
-        .then((comment) => dispatch(editComment(comment)))
+        .then((comment) => {
+            console.log("editCommentToServerThunk", comment)
+            return dispatch(editComment(comment))
+        })
 };
 
 export const deleteCommentFromServerThunk = (id) => dispatch => {

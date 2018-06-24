@@ -1,4 +1,6 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import {editCommentToServerThunk, editPost} from "../actions";
 
 class EditComment extends Component{
 
@@ -25,14 +27,27 @@ class EditComment extends Component{
     };
     render(){
         const {comment} = this.props;
+        // const testCommentId = this.props.match.params.id;
+
         return(
-            <form>
-                <input type="text" value={this.state.body} onChange={(event) => this.handleChange(event)}/>
+            <form className="">
+                <h1>EditComment</h1>
+                <input type="text" className="comment-body"
+                       value={this.state.body}
+                       onChange={(event) => this.handleChange(event)}/>
                 <input type="text" defaultValue={comment.author}/>
-                <button type="submit" onSubmit={(event) => this.handleSubmit(event, comment.id)}>Submit</button>
+                <button onClick={(event) => this.handleSubmit(event, comment.id)}>Submit</button>
             </form>
         );
     }
 }
 
-export default EditComment;
+const mapStateToProps = (state, myProps) => ({
+    comment: myProps.comment
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    boundEditComment: (id, timestamp, body) => dispatch(editCommentToServerThunk(id, timestamp, body)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps) (EditComment)

@@ -33,7 +33,7 @@ const post = (state = initialPostState, action) => {
                 [POST]: state[POST].concat([post])
             };
         case EDIT_POST:
-            currentPosts = state[POST];
+            currentPosts = state[POST].slice();
             state[POST].map((currentPost, index) => {
                 if(currentPost.id === post.id){
                     currentPosts.splice(index, 1, post);
@@ -79,7 +79,7 @@ const post = (state = initialPostState, action) => {
             };
 
         case EDIT_COMMENT:
-            currentComments = state[COMMENT];
+            currentComments = state[COMMENT].slice();
             state[COMMENT].map((currentComment, index) => {
                 if(currentComment.id === comment.id){
                     currentComments.splice(index, 1, comment);

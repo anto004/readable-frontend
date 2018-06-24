@@ -6,6 +6,7 @@ import Posts from "../components/Posts"
 import CreatePost from "./CreatePost";
 import EditPost from "./EditPost";
 import PostDetail from "./PostDetail";
+import EditComment from "./EditComment";
 
 //TODO: use a modal for creating new post
 //TODO: Fix bug on createPost: Both Posts and CreatePost are displayed
@@ -27,6 +28,7 @@ class App extends Component {
           <Route exact path="/:category" component={Posts}/>
           <Route exact path="/createPost" component={CreatePost}/>
           <Route exact path="/:category/:id" component={PostDetail}/>
+          <Route exact path="/:category/:id/:id" component={EditComment}/>
 
       </div>
     );

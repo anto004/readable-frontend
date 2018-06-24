@@ -13,12 +13,13 @@ import {
 } from "../actions";
 import {POST, CATEGORY, COMMENT, UP_VOTE, DOWN_VOTE} from "../reducers";
 import EditComment from "./EditComment";
+import {Link} from "react-router-dom";
 
 
 class CommentBar extends Component{
 
     openEdit = (id) => {
-        this.props.boundEditComponent({"id": id, "isOpen": true})
+        this.props.boundEditComponent({"id": id, "isOpen": true});
     };
 
     render(){
@@ -44,7 +45,7 @@ class CommentBar extends Component{
                                     boundVoteComment(comment.id, DOWN_VOTE)}><ThumbsDown/></button>
                             </td>
                             <td className="Table-data">
-                                <button onClick={() => this.openEdit(comment.id)}><EditIcon/></button>
+                               <button onClick={() => this.openEdit(comment.id)}><EditIcon/></button>
                             </td>
                             <td className="Table-data">
                                 <button onClick={() => boundDeleteComment(comment.id)}>

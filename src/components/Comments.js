@@ -5,36 +5,44 @@ import {addAllPost, addAllPostCommentsThunk, editCommentToServerThunk, editCompo
 import {POST, CATEGORY, COMMENT, EDIT_COMPONENT_STATE} from "../reducers";
 import CommentBar from "./CommentBar";
 import EditComment from "./EditComment";
+import CommentDetail from "./CommentDetail";
 
 class Comments extends Component{
+    state = {
+        comments: []
+    };
 
     constructor(props){
         super(props);
-        props.boundAddAllPostComments(props.postId)
+        props.boundAddAllPostComments(props.postId);
+    }
+
+    componentDidMount(){
+        console.log("componentDidMount comments", this.props.comments);
     }
 
     render(){
         const {comments, editComponent} = this.props;
-        console.log("editComponent", editComponent);
+        console.log("comments from state", this.state.comments)
+
         return(
             <div className="comment-container">
                 <h3 className="body-title">Comments</h3>
-                <ol>
-                {comments.map(comment => (
-                    <li key={comment.id} className="comment-box">
-                        {(editComponent.id === comment.id && editComponent.isOpen)
-                            ? <EditComment comment={comment}
-                                           boundEditComment={(id, timestamp, body) =>
-                                                                         this.props.boundEditComment(id, timestamp, body)}
-                                           boundEditComponent={(option) => this.props.boundEditComponent(option)}/>
-                            : <div>
+                <table>
+                    {comments.map((comment) => (
+                        <tr key={comment.id} className="comment-box">
+                            <td>{(comment.id === editComponent.id && editComponent.isOpen)  && <EditComment comment={comment}
+                                                                                                        boundEditComponent={(option) => this.props.boundEditComponent(option)}/>
+                            }</td>
+                            {/*<CommentDetail comment={comment}*/}
+                            {/*body={comment.body}/>*/}
+                            <td>{comment.body}
                                 <textarea className="comment-body">{comment.body}</textarea>
                                 <CommentBar comment={comment}/>
-                            </div>
-                        }
-                    </li>
-                ))}
-                </ol>
+                            </td>
+                        </tr>
+                    ))}
+                </table>
             </div>
         );
     }
@@ -42,6 +50,8 @@ class Comments extends Component{
 
 const mapStateToProps = (state, ownProps) => {
     const postId = ownProps.postId;
+    console.log("comments at mapStateToProp", state[COMMENT]);
+
     return {
         comments: state[COMMENT].filter((comment) => (comment.parentId === postId) && !comment.parentDeleted),
         editComponent: state[EDIT_COMPONENT_STATE]
@@ -50,7 +60,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
     boundAddAllPostComments: (postId) => dispatch(addAllPostCommentsThunk(postId)),
-    boundEditComment: (id, timestamp, body) => dispatch(editCommentToServerThunk(id, timestamp, body)),
     boundEditComponent: (option) => dispatch(editComponent(option))
 });
 
