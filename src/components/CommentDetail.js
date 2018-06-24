@@ -6,11 +6,10 @@ import CommentBar from "./CommentBar";
 class CommentDetail extends Component{
 
     render(){
-        const {comment, body} = this.props;
-        console.log("CommentDetail comment", comment)
+        const {comment} = this.props;
         return(
             <div>
-                <textarea className="comment-body">{body}</textarea>
+                <textarea className="comment-body">{comment.body}</textarea>
                 <CommentBar comment={comment}/>
             </div>
         );

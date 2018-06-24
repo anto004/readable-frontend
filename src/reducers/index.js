@@ -72,6 +72,12 @@ const post = (state = initialPostState, action) => {
             };
 
         //Comments
+        case ADD_ALL_COMMENT:
+            return{
+                ...state,
+                [COMMENT]: comments
+            };
+
         case ADD_COMMENT:
             return {
                 ...state,
@@ -94,12 +100,6 @@ const post = (state = initialPostState, action) => {
             return{
                 ...state,
                 [COMMENT]: state[COMMENT].filter((currentComment) => currentComment.id !== comment.id)
-            };
-
-        case ADD_ALL_COMMENT:
-            return{
-                ...state,
-                [COMMENT]: comments
             };
 
         case VOTE_COMMENT:

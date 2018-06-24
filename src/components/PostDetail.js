@@ -1,21 +1,21 @@
 import React, {Component} from "react";
 import "../App.css";
-import Comments from "./Comments";
 import PostBar from "./PostBar";
 import {COMMENT, EDIT_COMPONENT_STATE, POST} from "../reducers";
 import {connect} from "react-redux";
 import {addAllPostCommentsThunk, editCommentToServerThunk, getPostFromServerThunk} from "../actions";
+import PostComments from "./Comments";
 
 
 class PostDetail extends Component{
 
     constructor(props){
         super(props);
-        // if(props.post === undefined){
-        //     this.props.boundGetPost(props.postId); //when page is refreshed posts in redux state is lost, add post to state
-        // }
-
+        if(this.props.post === undefined){
+            this.props.boundGetPost(this.props.postId); //when page is refreshed posts in redux state is lost, add post to state
+        }
     }
+
     render(){
         //Getting a post object from location
         // const post = this.props.location.state;
@@ -44,8 +44,13 @@ class PostDetail extends Component{
                         {/*<Comments postId={post.id}/>*/}
                     {/*</div>*/}
                 {/*}*/}
+
                 {post !== undefined &&
-                    <Comments postId={post.id}/>
+                    <div>
+                        {post.title}
+                        <PostComments postId={post.id}
+                                      categoryName={post.category}/>
+                    </div>
                 }
 
             </div>

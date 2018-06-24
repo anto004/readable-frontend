@@ -8,6 +8,7 @@ export const ADD_ALL_CATEGORY = "ADD_ALL_CATEGORY";
 export const VOTE_POST = "VOTE_POST";
 //Comments
 export const ADD_COMMENT = "ADD_COMMENT";
+export const GET_COMMENT = "GET_COMMENT";
 export const EDIT_COMMENT = "EDIT_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const ADD_ALL_COMMENT = "ADD_ALL_COMMENT";
@@ -59,8 +60,18 @@ export const votePost = (post) => ({
 });
 
 //Comments action creator
+export const addAllComment = (comments) => ({
+    type: ADD_ALL_COMMENT,
+    comments
+});
+
 export const addComment = (comment) => ({
     type: ADD_COMMENT,
+    comment
+});
+
+export const getComment = (comment) => ({
+    type: GET_COMMENT,
     comment
 });
 
@@ -72,11 +83,6 @@ export const editComment = (comment) => ({
 export const deleteComment = (comment) => ({
     type: DELETE_COMMENT,
     comment
-});
-
-export const addAllComment = (comments) => ({
-    type: ADD_ALL_COMMENT,
-    comments
 });
 
 export const voteComment = (comment) => ({
@@ -145,14 +151,12 @@ export const addCommentToServerThunk = (id, timestamp, body, author, parentId) =
         .then((comment) => dispatch(addComment(comment)))
 };
 
+
 //Note check for parentDeleted
 export const editCommentToServerThunk = (id, timestamp, body) => dispatch => {
     PostAPI
         .editComment(id, timestamp, body)
-        .then((comment) => {
-            console.log("editCommentToServerThunk", comment)
-            return dispatch(editComment(comment))
-        })
+        .then((comment) => dispatch(editComment(comment)))
 };
 
 export const deleteCommentFromServerThunk = (id) => dispatch => {

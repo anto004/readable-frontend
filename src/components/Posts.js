@@ -197,7 +197,6 @@ class Posts extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log("Posts match",ownProps.match);
     var category = "";
     if(ownProps.location !== undefined){
         const urlSearchParams = new URLSearchParams(ownProps.location.search);

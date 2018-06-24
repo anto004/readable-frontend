@@ -150,9 +150,10 @@
 
 .comment-body {
     font-family: arial, sans-serif;
-    width: 100%;
+    width: 60%;
     height: 60px;
     margin: 0px 60px;
+    border: 1px solid black;
 }
 
 .comment-bar {

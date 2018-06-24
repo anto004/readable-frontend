@@ -5,6 +5,7 @@ import {connect} from "react-redux";
 import {getAllCategoryThunk} from "../actions";
 import * as PostAPI from "../utils/PostWebAppAPI";
 
+//Passing query string to url
 class Category extends Component{
     constructor(props){
         super(props);

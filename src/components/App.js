@@ -28,7 +28,7 @@ class App extends Component {
           <Route exact path="/:category" component={Posts}/>
           <Route exact path="/createPost" component={CreatePost}/>
           <Route exact path="/:category/:id" component={PostDetail}/>
-          <Route exact path="/:category/:id/:id" component={EditComment}/>
+          <Route exact path="/:category/:post/:comment" component={EditComment}/>
 
       </div>
     );

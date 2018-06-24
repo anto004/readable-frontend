@@ -17,13 +17,20 @@ import {Link} from "react-router-dom";
 
 
 class CommentBar extends Component{
+    constructor(props){
+        super(props);
+
+    }
 
     openEdit = (id) => {
         this.props.boundEditComponent({"id": id, "isOpen": true});
     };
 
+    componentWillReceiveProps(props){
+    }
+
     render(){
-        const {comment} = this.props;
+        const {commentId, author, voteScore, parentId, categoryName} = this.props;
         const {boundVoteComment, boundDeleteComment} = this.props;
         return(
             <div>
@@ -31,24 +38,24 @@ class CommentBar extends Component{
                         <tbody>
                         <tr>
                             <td className="Table-data">
-                                Author:{comment.author}
+                                Author:{author}
                             </td>
                             <td className="Table-data">
-                                Current Score:{comment.voteScore}
-                            </td>
-                            <td className="Table-data">
-                                <button onClick={() =>
-                                    boundVoteComment(comment.id, UP_VOTE)}><ThumbsUp/></button>
+                                Current Score:{voteScore}
                             </td>
                             <td className="Table-data">
                                 <button onClick={() =>
-                                    boundVoteComment(comment.id, DOWN_VOTE)}><ThumbsDown/></button>
+                                    boundVoteComment(commentId, UP_VOTE)}><ThumbsUp/></button>
                             </td>
                             <td className="Table-data">
-                               <button onClick={() => this.openEdit(comment.id)}><EditIcon/></button>
+                                <button onClick={() =>
+                                    boundVoteComment(commentId, DOWN_VOTE)}><ThumbsDown/></button>
                             </td>
                             <td className="Table-data">
-                                <button onClick={() => boundDeleteComment(comment.id)}>
+                                <button onClick={() => this.openEdit(commentId)}><EditIcon/></button>
+                            </td>
+                            <td className="Table-data">
+                                <button onClick={() => boundDeleteComment(commentId)}>
                                     <CloseIcon/>
                                 </button>
                             </td>
@@ -61,14 +68,17 @@ class CommentBar extends Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
+    const commentId = ownProps.commentId;
     return {
-        comment: ownProps.comment
+        comment: state[COMMENT].filter(comment => comment.id === commentId)[0],
+        categoryName: ownProps.categoryName
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
     boundDeleteComment: (id) => dispatch(deleteCommentFromServerThunk(id)),
     boundVoteComment: (id, vote) => dispatch(voteCommentToServerThunk(id, vote)),
+
     boundEditComponent: (option) => dispatch(editComponent(option))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CommentBar);
