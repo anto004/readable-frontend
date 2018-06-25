@@ -9,7 +9,6 @@ import PostBar from "./PostBar";
 import AddCircle from "react-icons/lib/io/android-add-circle";
 import {POST, CATEGORY, COMMENT} from "../reducers";
 
-//TODO: Fix Modal bug: Modal appears below body
 Modal.setAppElement("body");
 class Posts extends Component {
     TITLE = "title";
@@ -38,7 +37,7 @@ class Posts extends Component {
             editPostModalOpen: true,
         });
 
-        //Get the particular post to edit, only if the modal is open
+        //Get the particular post to edit from redux state, only if the modal is open
         for(var i = 0; i < posts.length; i++){
             if(posts[i].id === id){
                 this.setState({
@@ -85,9 +84,7 @@ class Posts extends Component {
 
         this.props.boundEditPost(this.state.id, this.state.title, this.state.body);
 
-        this.setState({
-            editPostModal: false // close modal after finishing editing
-        })
+        this.closeEditPostModal();
     }
 
     handleChange(e){
@@ -113,56 +110,53 @@ class Posts extends Component {
 
         return (
             <div className="container">
-                <div className="container">
-                    <h2 className="body-title">Posts</h2>
-                    <Link to="/createPost"><AddCircle size={30}/>Write New Post</Link>
-                    <div>
-                        {/*<button className="submit-button"></button>*/}
-                        <select className="order-by-select"
-                                value={this.state.value} onChange={(event) => this.handleChange(event)}>
-                            <option value={this.ORDER_DATE}>Date</option>
-                            <option value={this.ORDER_VOTE}>Vote</option>
-                        </select>
-                    </div>
-
-                    <table className="Table-style">
-                        <tbody>
-                        {posts.map((post) => (
-                            <tr key={post.id} className="Table-row">
-                                <td className="Outer-Table-data">
-                                    <table>
-                                        <tbody>
-
-                                        <tr>
-                                            <td colSpan="5">
-                                                <Link to={{
-                                                    pathname: `/${post.category}/${post.id}`,
-                                                    state: post
-                                                }}>{post.title}</Link>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            {/*Component for post UI*/}
-                                            <PostBar
-                                                post={post}
-                                                openEditPostModal={(id) => this.openEditPostModal(id)}/>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                <h2 className="body-title">Posts</h2>
+                <Link to="/createPost"><AddCircle size={30}/>Write New Post</Link>
+                <div>
+                    <select className="order-by-select"
+                            value={this.state.value} onChange={(event) => this.handleChange(event)}>
+                        <option value={this.ORDER_DATE}>Date</option>
+                        <option value={this.ORDER_VOTE}>Vote</option>
+                    </select>
                 </div>
+
+                <table className="Table-style">
+                    <tbody>
+                    {posts.map((post) => (
+                        <tr key={post.id} className="Table-row">
+                            <td className="Outer-Table-data">
+                                <table>
+                                    <tbody>
+
+                                    <tr>
+                                        <td colSpan="5">
+                                            <Link to={{
+                                                pathname: `/${post.category}/${post.id}`,
+                                                state: post
+                                            }}>{post.title}</Link>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        {/*Component for post UI*/}
+                                        <PostBar
+                                            post={post}
+                                            openEditPostModal={(id) => this.openEditPostModal(id)}/>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
 
                 {/*Edit Post Modal*/}
                 <Modal
                     className="modal"
                     overlayClassName="overlay"
                     isOpen={editPostModalOpen}
-                    onRequestClose={this.closeEditPostModal}
+                    onRequestClose={() => this.closeEditPostModal()}
                     contentLabel="Modal">
                     <div>
 
@@ -176,14 +170,13 @@ class Posts extends Component {
                                    value={this.state.title}
                                    onChange={(event) => this.updateForm(event, this.TITLE)}/>
                             <textarea wrap="hard" className="form-textarea"
-                                   placeholder="Write your post here"
-                                   value={this.state.body}
-                                   onChange={(event) => this.updateForm(event, this.BODY)}/>
+                                      placeholder="Write your post here"
+                                      value={this.state.body}
+                                      onChange={(event) => this.updateForm(event, this.BODY)}/>
                             <input type="text" className="form-author"
                                    placeholder="Your Name"
                                    value={this.state.author}
                                    onChange={(event) => this.updateForm(event, this.AUTHOR)}/>
-                            {/*TODO: on submit close modal*/}
                             <button type="submit"
                                     disabled={!this.state.title || !this.state.body || !this.state.author}>Submit
                             </button>
@@ -192,6 +185,7 @@ class Posts extends Component {
                     </div>
                 </Modal>
             </div>
+
         )
     }
 }

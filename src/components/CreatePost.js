@@ -1,19 +1,26 @@
 import React, {Component} from "react";
 import "../App.css";
 import serializeForm from "form-serialize";
-import {addPostToServerThunk} from "../actions";
+import {addPostToServerThunk, getAllCategoryThunk} from "../actions";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
+import {CATEGORY, POST} from "../reducers";
 
 class CreatePost extends Component{
     TITLE = "title";
     BODY = "body";
     AUTHOR = "author";
 
+    constructor(props){
+        super(props);
+        props.boundGetAllCategory();
+    }
+
     state = {
         title: "",
         body: "",
         author: "",
+        value: "",
         redirect: false
     };
 
@@ -48,12 +55,28 @@ class CreatePost extends Component{
         }
     };
 
+    selectCategory = (e) => {
+        this.setState({
+            value: e.target.value
+        })
+    };
+
     render(){
-        console.log("Create post match",this.props.match);
+        const {categories} = this.props;
         return (
             <div>
                 {this.state.redirect && <Redirect to="/posts"/>}
                 <div className="form-container">
+                    <h2>New Post</h2>
+                    <h4>Choose Category</h4>
+
+                    <select className="select-category"
+                            value={this.state.value} onChange={(event) => this.selectCategory(event)}>
+                        {categories.map(category => (
+                            <option value={category.name}>{category.name}</option>
+                        ))}
+                    </select>
+
                     <form onSubmit={(event) => this.handleSubmit(event)}>
                         <input type="text" className="form-title"
                                placeholder="title here" onChange={(event) => this.updateForm(event, this.TITLE)}/>
@@ -72,13 +95,17 @@ class CreatePost extends Component{
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-        posts: state.post
-});
+const mapStateToProps = (state, ownProps) => {
+    return{
+        categories: state[CATEGORY],
+        posts: state[POST]
+    }
+};
 
 const mapDispatchToProps = (dispatch) => ({
     boundAddPost: (id, timestamp, title, body, author, category) =>
-        dispatch(addPostToServerThunk(id, timestamp, title, body, author, category))
+        dispatch(addPostToServerThunk(id, timestamp, title, body, author, category)),
+    boundGetAllCategory: () => dispatch(getAllCategoryThunk())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreatePost);

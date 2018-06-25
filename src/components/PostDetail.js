@@ -4,7 +4,7 @@ import PostBar from "./PostBar";
 import {COMMENT, EDIT_COMPONENT_STATE, POST} from "../reducers";
 import {connect} from "react-redux";
 import {addAllPostCommentsThunk, editCommentToServerThunk, getPostFromServerThunk} from "../actions";
-import PostComments from "./Comments";
+import Comments from "./Comments";
 
 
 class PostDetail extends Component{
@@ -23,36 +23,29 @@ class PostDetail extends Component{
         return(
             <div className="container">
 
-                {/*{post !== undefined &&*/}
-                    {/*<div>*/}
-                        {/*<h2 className="body-title">Post Details</h2>*/}
-                        {/*<div className="post-detail-title-box">*/}
-                            {/*{post.title}*/}
-                        {/*</div>*/}
-                        {/*<div className="post-detail-body-box">*/}
-                            {/*{post.body}*/}
-                        {/*</div>*/}
-
-                        {/*<table className="post-detail-table-style">*/}
-                            {/*<tbody>*/}
-                            {/*<tr>*/}
-                                {/*/!*Calling Post UI component*!/*/}
-                                {/*<PostBar post={post}/>*/}
-                            {/*</tr>*/}
-                            {/*</tbody>*/}
-                        {/*</table>*/}
-                        {/*<Comments postId={post.id}/>*/}
-                    {/*</div>*/}
-                {/*}*/}
-
                 {post !== undefined &&
                     <div>
-                        {post.title}
-                        <PostComments postId={post.id}
-                                      categoryName={post.category}/>
+                        <h2 className="body-title">Post Details</h2>
+                        <div className="post-detail-title-box">
+                            {post.title}
+                        </div>
+                        <div className="post-detail-body-box">
+                            {post.body}
+                        </div>
+
+                        <table className="post-detail-table-style">
+                            <tbody>
+                            <tr>
+                                {/*Calling Post UI component*/}
+                                <PostBar post={post}/>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <Comments postId={post.id}
+                                  categoryName={post.category}/>
                     </div>
                 }
-
             </div>
         );
     }

@@ -4,6 +4,7 @@ import {addAllPostCommentsThunk, editComponent} from "../actions";
 import {COMMENT, EDIT_COMPONENT_STATE} from "../reducers";
 import CommentBar from "./CommentBar";
 import EditComment from "./EditComment";
+import CreateComment from "./CreateComment";
 
 
 class Comments extends Component{
@@ -15,8 +16,7 @@ class Comments extends Component{
     }
 
     render(){
-        const {comments, categoryName, editComponent} = this.props;
-        console.log("Comments", comments);
+        const {comments, categoryName, editComponent, postId} = this.props;
         return(
             <div>
                 <div className="comment-container">
@@ -42,6 +42,9 @@ class Comments extends Component{
                                 </td>
                             </tr>
                         ))}
+                        <tr className="comment-box">
+                            <CreateComment parentId={postId}/>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
