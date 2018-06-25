@@ -7,13 +7,10 @@ import CloseIcon from "react-icons/lib/fa/close";
 import {connect} from "react-redux";
 import {
     deleteCommentFromServerThunk,
-    editCommentToServerThunk,
     editComponent,
     voteCommentToServerThunk
 } from "../actions";
-import {POST, CATEGORY, COMMENT, UP_VOTE, DOWN_VOTE} from "../reducers";
-import EditComment from "./EditComment";
-import {Link} from "react-router-dom";
+import {COMMENT, UP_VOTE, DOWN_VOTE} from "../reducers";
 
 
 class CommentBar extends Component{
@@ -30,7 +27,7 @@ class CommentBar extends Component{
     }
 
     render(){
-        const {commentId, author, voteScore, parentId, categoryName} = this.props;
+        const {commentId, author, voteScore} = this.props;
         const {boundVoteComment, boundDeleteComment} = this.props;
         return(
             <div>

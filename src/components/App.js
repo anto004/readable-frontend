@@ -1,15 +1,11 @@
 import "../App.css"
 import React, {Component} from "react";
-import Category from "../components/Category";
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import Posts from "../components/Posts"
 import CreatePost from "./CreatePost";
-import EditPost from "./EditPost";
 import PostDetail from "./PostDetail";
-import EditComment from "./EditComment";
+import FourOFourPage from "./FourOFourPage";
 
-//TODO: use a modal for creating new post
-//TODO: Fix bug on createPost: Both Posts and CreatePost are displayed
 class App extends Component {
 
   render() {
@@ -19,16 +15,21 @@ class App extends Component {
           <h1 className="App-title">Readable</h1>
         </header>
 
-          <Route exact path="/" render={() => (
-              <div>
-                  <Category/>
-                  <Posts/>
-              </div>
-          )}/>
-          <Route exact path="/:category" component={Posts}/>
-          <Route exact path="/createPost" component={CreatePost}/>
-          <Route exact path="/:category/:id" component={PostDetail}/>
-          <Route exact path="/:category/:post/:comment" component={EditComment}/>
+          <Switch>
+              <Route exact path="/" render={() => (
+                  <div>
+                      <Posts/>
+                  </div>
+              )}/>
+              {/*List posts belonging to specific category navigational categories*/}
+              <Route strict exact path="/:category" component={Posts}/>
+              {/*Open a create new post page with categories to select from*/}
+              <Route exact strict path="/createPost/" component={CreatePost}/>
+              {/*Show a post detail*/}
+              <Route exact path="/:category/:id" component={PostDetail}/>
+              <Route component={FourOFourPage}/>
+          </Switch>
+
 
       </div>
     );

@@ -16,7 +16,7 @@ class Comments extends Component{
     }
 
     render(){
-        const {comments, categoryName, editComponent, postId} = this.props;
+        const {categoryName, editComponent, postId} = this.props;
         return(
             <div>
                 <div className="comment-container">

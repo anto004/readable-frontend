@@ -35,7 +35,7 @@ class CreateComment extends Component{
     };
     render(){
         return (
-            <div>
+            <td>
                 <h4>New Comment</h4>
                 <form onSubmit={() => this.handleSubmit()}>
                     <input type="text"
@@ -48,7 +48,7 @@ class CreateComment extends Component{
                            onChange={(event) => this.handleChange(event, this.AUTHOR)}/>
                     <button type="submit" disabled={!this.state.body || !this.state.author}>Submit</button>
                 </form>
-            </div>
+            </td>
         )
     }
 }

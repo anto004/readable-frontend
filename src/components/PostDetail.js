@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import "../App.css";
 import PostBar from "./PostBar";
-import {COMMENT, EDIT_COMPONENT_STATE, POST} from "../reducers";
+import {POST} from "../reducers";
 import {connect} from "react-redux";
-import {addAllPostCommentsThunk, editCommentToServerThunk, getPostFromServerThunk} from "../actions";
+import { getPostFromServerThunk} from "../actions";
 import Comments from "./Comments";
 
 
@@ -21,9 +21,11 @@ class PostDetail extends Component{
         // const post = this.props.location.state;
         const {post} = this.props;
         return(
-            <div className="container">
+            <div>
+                <button onClick={() => this.props.history.goBack()}>Go Back</button>
 
-                {post !== undefined &&
+                <div className="container">
+                    {post !== undefined &&
                     <div>
                         <h2 className="body-title">Post Details</h2>
                         <div className="post-detail-title-box">
@@ -45,7 +47,8 @@ class PostDetail extends Component{
                         <Comments postId={post.id}
                                   categoryName={post.category}/>
                     </div>
-                }
+                    }
+                </div>
             </div>
         );
     }

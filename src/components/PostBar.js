@@ -6,7 +6,7 @@ import EditIcon from "react-icons/lib/fa/edit";
 import CloseIcon from "react-icons/lib/fa/close";
 import {connect} from "react-redux";
 import {deletePostFromServerThunk, votePostToServerThunk} from "../actions";
-import {POST, CATEGORY, COMMENT, UP_VOTE, DOWN_VOTE} from "../reducers";
+import {UP_VOTE, DOWN_VOTE} from "../reducers";
 
 
 class PostBar extends Component{

@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {editCommentToServerThunk, editPost} from "../actions";
-import {COMMENT, POST} from "../reducers";
-import {Redirect} from "react-router-dom";
+import {editCommentToServerThunk} from "../actions";
 
 class EditComment extends Component{
 
@@ -20,11 +18,6 @@ class EditComment extends Component{
         const timestamp = Date.now();
         this.props.boundEditComment(id, timestamp, this.state.body);
         this.props.boundEditComponent({"id": id, "isOpen": false}); //close Edit when finished
-
-        // this.setState({
-        //     redirect: true
-        // });
-        //this.props.history.push(this.props.location.pathname, { some: "state" })
     };
 
     handleChange = (e) => {
@@ -35,12 +28,9 @@ class EditComment extends Component{
 
     render(){
         const {comment} = this.props;
-       // const redirectPath = `/${this.props.match.params.category}/${this.props.match.params.post}`;
-        console.log("Edit Component comment", comment)
         return(
             <div>
             <form onSubmit={(event) => this.handleSubmit(event, comment.id)}>
-                {/*{(this.state.redirect && <Redirect to={redirectPath}/>)}*/}
                 <h1>Edit Comment</h1>
                 <input type="text" className="comment-body"
                        value={this.state.body}

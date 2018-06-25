@@ -8,6 +8,7 @@ import Modal from "react-modal";
 import PostBar from "./PostBar";
 import AddCircle from "react-icons/lib/io/android-add-circle";
 import {POST, CATEGORY, COMMENT} from "../reducers";
+import Category from "./Category";
 
 Modal.setAppElement("body");
 class Posts extends Component {
@@ -80,8 +81,6 @@ class Posts extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
-        const category = "Hobbies"; //TODO Get category from Category component
-
         this.props.boundEditPost(this.state.id, this.state.title, this.state.body);
 
         this.closeEditPostModal();
@@ -95,7 +94,7 @@ class Posts extends Component {
 
     render(){
         const sortBy = require("sort-by");
-        const {posts} = this.props;
+        const {posts, category} = this.props;
         const {editPostModalOpen} = this.state;
 
         switch(this.state.value){
@@ -111,7 +110,10 @@ class Posts extends Component {
         return (
             <div className="container">
                 <h2 className="body-title">Posts</h2>
-                <Link to="/createPost"><AddCircle size={30}/>Write New Post</Link>
+                <Link to={"/"}>Main Page</Link>
+                <Category/>
+
+                <Link to={`/createPost/`}><AddCircle size={30}/>Write New Post</Link>
                 <div>
                     <select className="order-by-select"
                             value={this.state.value} onChange={(event) => this.handleChange(event)}>
@@ -191,12 +193,16 @@ class Posts extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+    //Parsing URL
+   //If category is provided at url, parse url and display posts belonging to that category else url is at root show all posts
     var category = "";
     if(ownProps.location !== undefined){
         const urlSearchParams = new URLSearchParams(ownProps.location.search);
         category = urlSearchParams.get("category");
+
     }
     return {
+        category: category,
         posts: category ? state[POST].filter((post) => post.category === category && !post.delete)
             :state[POST]
 

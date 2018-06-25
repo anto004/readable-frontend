@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import "../App.css";
-import serializeForm from "form-serialize";
 import {addPostToServerThunk, getAllCategoryThunk} from "../actions";
 import {connect} from "react-redux";
 import {Redirect} from "react-router-dom";
@@ -20,7 +19,7 @@ class CreatePost extends Component{
         title: "",
         body: "",
         author: "",
-        value: "",
+        category: "",
         redirect: false
     };
 
@@ -31,9 +30,8 @@ class CreatePost extends Component{
         const uuid = require("uuid/v4");
         const id = uuid();
         const timestamp = Date.now();
-        const category = "Hobbies"; //TODO Get category from Category component
 
-        this.props.boundAddPost(id, timestamp, this.state.title, this.state.body, this.state.author, category);
+        this.props.boundAddPost(id, timestamp, this.state.title, this.state.body, this.state.author, this.state.category);
 
         this.setState({
             redirect: true
@@ -57,7 +55,7 @@ class CreatePost extends Component{
 
     selectCategory = (e) => {
         this.setState({
-            value: e.target.value
+            category: e.target.value
         })
     };
 
@@ -71,9 +69,10 @@ class CreatePost extends Component{
                     <h4>Choose Category</h4>
 
                     <select className="select-category"
-                            value={this.state.value} onChange={(event) => this.selectCategory(event)}>
+                            value={this.state.value}
+                            onChange={(event) => this.selectCategory(event)}>
                         {categories.map(category => (
-                            <option value={category.name}>{category.name}</option>
+                            <option key={category.name} value={category.name}>{category.name}</option>
                         ))}
                     </select>
 

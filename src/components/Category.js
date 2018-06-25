@@ -3,7 +3,6 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {getAllCategoryThunk} from "../actions";
-import * as PostAPI from "../utils/PostWebAppAPI";
 
 //Passing query string to url
 class Category extends Component{
@@ -12,17 +11,8 @@ class Category extends Component{
         props.boundGetAllCategory();
     }
 
-    fetchPosts = (category) => {
-        var query = require("querystringify");
-        const queryString = query.stringify({category: category.name}, true);
-        //console.log("queryString", queryString);
-        query.stringify({category: category.name}, true);
-    };
-
-    //TODO: pass query parameter category to url
     render() {
         const {categories} = this.props;
-        var query = require("querystringify");
         return (
             <div>
                 <div className="container">
@@ -33,10 +23,9 @@ class Category extends Component{
                             <tr key={category.name} className="Table-row">
                                 <td className="Table-data">
                                     <Link to={{
-                                        pathname: `/:category=${category.name}`,
+                                        pathname: `/${category.name}`,
                                         search: `?category=${category.name}`
-                                    }} onClick={() => this.fetchPosts(category)}>
-                                        {category.name}</Link>
+                                    }}>{category.name}</Link>
                                 </td>
                             </tr>
                         ))}
@@ -48,9 +37,11 @@ class Category extends Component{
     };
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    categories: state.category
-});
+const mapStateToProps = (state, ownProps) => {
+    return {
+        categories: state.category
+    }
+};
 
 const mapDispatchToProps = (dispatch) => ({
     boundGetAllCategory: () => dispatch(getAllCategoryThunk())
