@@ -97,9 +97,18 @@ const post = (state = initialPostState, action) => {
             };
 
         case DELETE_COMMENT:
+            const parentId = comment.parentId;
             return{
                 ...state,
-                [COMMENT]: state[COMMENT].filter((currentComment) => currentComment.id !== comment.id)
+                [COMMENT]: state[COMMENT].filter((currentComment) => currentComment.id !== comment.id),
+                [POST]: state[POST].map((post) => {
+                    if(post.id === parentId){
+                        return{
+                            ...post,
+                            commentCount: post["commentCount"] - 1
+                        }
+                    }
+                })
             };
 
         case VOTE_COMMENT:

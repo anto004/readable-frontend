@@ -61,6 +61,11 @@ class CreatePost extends Component{
 
     render(){
         const {categories} = this.props;
+        let firstSelectValue = "";
+        if(!this.state.category && categories.length !== 0){
+            firstSelectValue = categories[0].name //Assuming there is always a category
+        }
+        console.log("Createpost category", this.state.category, " firstSelectValue", firstSelectValue);
         return (
             <div>
                 {this.state.redirect && <Redirect to="/posts"/>}
@@ -68,15 +73,17 @@ class CreatePost extends Component{
                     <h2>New Post</h2>
                     <h4>Choose Category</h4>
 
-                    <select className="select-category"
-                            value={this.state.value}
-                            onChange={(event) => this.selectCategory(event)}>
-                        {categories.map(category => (
-                            <option key={category.name} value={category.name}>{category.name}</option>
-                        ))}
-                    </select>
-
                     <form onSubmit={(event) => this.handleSubmit(event)}>
+
+                        <select value={this.state.category ? this.state.category : "none"}
+                                onChange={(event) => this.selectCategory(event)}
+                                className="select-category">
+                            <option value="none">None</option>
+                            {categories.map(category => (
+                                <option key={category.name} value={category.name}>{category.name}</option>
+                            ))}
+                        </select>
+
                         <input type="text" className="form-title"
                                placeholder="title here" onChange={(event) => this.updateForm(event, this.TITLE)}/>
                         <textarea className="form-textarea" placeholder="Write your post here"
@@ -85,7 +92,8 @@ class CreatePost extends Component{
                         <input type="text" className="form-author" placeholder="Your Name"
                                 onChange={(event) => this.updateForm(event, this.AUTHOR)}/>
                         <button type="submit"
-                                disabled={!this.state.title || !this.state.body || !this.state.author}>Submit
+                                disabled={!this.state.title || !this.state.body || !this.state.author
+                                    || !this.state.category}>Submit
                         </button>
                     </form>
                 </div>

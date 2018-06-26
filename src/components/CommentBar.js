@@ -74,8 +74,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({
     boundDeleteComment: (id) => dispatch(deleteCommentFromServerThunk(id)),
+    boundDeleteCommentFromState: "",
     boundVoteComment: (id, vote) => dispatch(voteCommentToServerThunk(id, vote)),
-
     boundEditComponent: (option) => dispatch(editComponent(option))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CommentBar);
