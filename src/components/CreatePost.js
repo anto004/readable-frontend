@@ -61,11 +61,6 @@ class CreatePost extends Component{
 
     render(){
         const {categories} = this.props;
-        let firstSelectValue = "";
-        if(!this.state.category && categories.length !== 0){
-            firstSelectValue = categories[0].name //Assuming there is always a category
-        }
-        console.log("Createpost category", this.state.category, " firstSelectValue", firstSelectValue);
         return (
             <div>
                 {this.state.redirect && <Redirect to="/posts"/>}

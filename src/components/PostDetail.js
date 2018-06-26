@@ -5,15 +5,18 @@ import {POST} from "../reducers";
 import {connect} from "react-redux";
 import { getPostFromServerThunk} from "../actions";
 import Comments from "./Comments";
+import FourOFourPage from "./FourOFourPage";
+import {Link} from "react-router-dom";
 
 
 class PostDetail extends Component{
 
     constructor(props){
         super(props);
-        if(this.props.post === undefined){
-            this.props.boundGetPost(this.props.postId); //when page is refreshed posts in redux state is lost, add post to state
-        }
+    }
+
+    componentDidMount(){
+        this.props.boundGetPost(this.props.postId); //when page is refreshed posts in redux state is lost, add post to state
     }
 
     render(){
@@ -22,35 +25,38 @@ class PostDetail extends Component{
         const {post} = this.props;
         return(
             <div>
-                <button onClick={() => this.props.history.goBack()}>Go Back</button>
-
+                <Link to={"/"}>Main Page</Link>
                 <div className="container">
-                    {post !== undefined &&
-                    <div>
-                        <h2 className="body-title">Post Details</h2>
-                        <div className="post-detail-title-box">
-                            {post.title}
-                        </div>
-                        <div className="post-detail-body-box">
-                            {post.body}
+                    {post !== undefined
+                        ? <div>
+                            <button onClick={() => this.props.history.goBack()}>Go Back</button>
+                            <h2 className="body-title">Post Details</h2>
+                            <div className="post-detail-title-box">
+                                {post.title}
+                            </div>
+                            <div className="post-detail-body-box">
+                                {post.body}
+                            </div>
+
+                            <table className="post-detail-table-style">
+                                <tbody>
+                                <tr>
+                                    {/*Calling Post UI component*/}
+                                    <PostBar post={post}/>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                            <Comments postId={post.id}
+                                      categoryName={post.category}/>
                         </div>
 
-                        <table className="post-detail-table-style">
-                            <tbody>
-                            <tr>
-                                {/*Calling Post UI component*/}
-                                <PostBar post={post}/>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <Comments postId={post.id}
-                                  categoryName={post.category}/>
-                    </div>
+                        : <FourOFourPage/> //Post is not found, show Error 404
                     }
                 </div>
             </div>
         );
+
     }
 }
 const mapStateToProps = (state, ownProps) => {
