@@ -1,8 +1,8 @@
 # readable-frontend
-Web app using React, Redux and middleware.
+Web App to write posts, comment and vote on others posts.
 
-Required to run the project:
-  
+# install
+```
     npm install
-  
     npm start or yarn start
+```
