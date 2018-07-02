@@ -2,9 +2,9 @@ import React, {Component} from "react";
 import {addCommentToServerThunk} from "../actions";
 import {connect} from "react-redux";
 
+const BODY = "body";
+const AUTHOR = "author";
 class CreateComment extends Component{
-    BODY = "body";
-    AUTHOR = "author";
     state = {
         body: "",
         author: ""
@@ -12,12 +12,12 @@ class CreateComment extends Component{
 
     handleChange = (e, formInput) => {
         switch(formInput){
-            case this.BODY:
+            case BODY:
                 this.setState({
                     body: e.target.value
                 });
                 break;
-            case this.AUTHOR:
+            case AUTHOR:
                 this.setState({
                     author: e.target.value
                 });

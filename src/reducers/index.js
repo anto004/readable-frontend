@@ -24,8 +24,8 @@ const post = (state = initialPostState, action) => {
     const {comment, comments} = action;
     const {option} = action;
 
-    var currentPosts = [];
-    var currentComments = [];
+    let currentPosts = [];
+    let currentComments = [];
     switch(action.type){
         case ADD_POST:
             return {

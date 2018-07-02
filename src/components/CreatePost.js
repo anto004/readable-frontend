@@ -10,11 +10,6 @@ class CreatePost extends Component{
     BODY = "body";
     AUTHOR = "author";
 
-    constructor(props){
-        super(props);
-        props.boundGetAllCategory();
-    }
-
     state = {
         title: "",
         body: "",
@@ -22,6 +17,11 @@ class CreatePost extends Component{
         category: "",
         redirect: false
     };
+
+
+    componentDidMount(){
+        this.props.boundGetAllCategory();
+    }
 
     handleSubmit(e) {
         e.preventDefault();
