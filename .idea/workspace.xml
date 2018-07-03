@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a67fa3e8-c2a3-42fa-839a-e9a6dd1a864a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Comments.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Comments.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CreateComment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreateComment.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CreatePost.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CreatePost.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PostDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PostDetail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducers/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,8 +19,11 @@
       <file leaf-file-name="Posts.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Posts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="32" />
+            <state relative-caret-position="479">
+              <caret line="136" column="59" lean-forward="true" selection-start-line="136" selection-start-column="59" selection-end-line="136" selection-end-column="59" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -42,7 +40,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PostDetail.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PostDetail.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/PostDetail.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="150">
@@ -81,7 +79,7 @@
       <file leaf-file-name="Comments.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Comments.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="7">
               <caret line="9" column="85" selection-start-line="9" selection-start-column="85" selection-end-line="9" selection-end-column="85" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -90,11 +88,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateComment.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CreateComment.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/CreateComment.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
+            <state relative-caret-position="178">
+              <caret line="43" column="81" lean-forward="true" selection-start-line="43" selection-start-column="81" selection-end-line="43" selection-end-column="81" />
             </state>
           </provider>
         </entry>
@@ -163,10 +161,10 @@
         <option value="$PROJECT_DIR$/src/components/CommentBar.js" />
         <option value="$PROJECT_DIR$/src/components/CreatePost.js" />
         <option value="$PROJECT_DIR$/src/components/Comments.js" />
-        <option value="$PROJECT_DIR$/src/components/CreateComment.js" />
         <option value="$PROJECT_DIR$/src/reducers/index.js" />
         <option value="$PROJECT_DIR$/src/components/PostBar.js" />
         <option value="$PROJECT_DIR$/src/components/PostDetail.js" />
+        <option value="$PROJECT_DIR$/src/components/CreateComment.js" />
       </list>
     </option>
   </component>
@@ -299,18 +297,18 @@
       <workItem from="1530304304945" duration="420000" />
       <workItem from="1530552527773" duration="423000" />
       <workItem from="1530553008235" duration="46000" />
-      <workItem from="1530553132137" duration="4221000" />
+      <workItem from="1530553132137" duration="4526000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="206215000" />
+    <option name="totallyTimeSpent" value="206520000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13979349" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13979349" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50039715" side_tool="true" weight="0.32892805" />
@@ -318,7 +316,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49960285" visible="true" weight="0.28965518" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49960285" visible="true" weight="0.28965518" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
@@ -665,23 +663,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Comments.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="85" selection-start-line="9" selection-start-column="85" selection-end-line="9" selection-end-column="85" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/CreateComment.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="19" column="23" selection-start-line="19" selection-start-column="23" selection-end-line="19" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/reducers/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1061">
@@ -719,13 +700,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Posts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" selection-start-line="6" selection-end-line="6" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/PostDetail.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -733,6 +707,33 @@
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Posts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="479">
+          <caret line="136" column="59" lean-forward="true" selection-start-line="136" selection-start-column="59" selection-end-line="136" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Comments.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7">
+          <caret line="9" column="85" selection-start-line="9" selection-start-column="85" selection-end-line="9" selection-end-column="85" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/CreateComment.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="43" column="81" lean-forward="true" selection-start-line="43" selection-start-column="81" selection-end-line="43" selection-end-column="81" />
         </state>
       </provider>
     </entry>

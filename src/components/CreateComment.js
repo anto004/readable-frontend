@@ -41,11 +41,11 @@ class CreateComment extends Component{
                     <input type="text"
                            className="comment-body"
                            placeholder="Write comment"
-                           onChange={(event) => this.handleChange(event, this.BODY)}/>
+                           onChange={(event) => this.handleChange(event, BODY)}/>
                     <input type="text"
                            className="comment-author"
                            placeholder="Your name"
-                           onChange={(event) => this.handleChange(event, this.AUTHOR)}/>
+                           onChange={(event) => this.handleChange(event, AUTHOR)}/>
                     <button type="submit" disabled={!this.state.body || !this.state.author}>Submit</button>
                 </form>
             </td>
